@@ -6,14 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.example.georgeissac.mvp.R
+import com.example.georgeissac.mvp.interfaces.PassPositionOfItemClicked
 import com.example.georgeissac.mvp.retrofit.response.Country
 
 
-class CountryAdapter constructor(var list : List<Country>): RecyclerView.Adapter<CountryAdapter.MyViewHolder>() {
+class CountryAdapter constructor(var resultList : List<Country>,var clicked: PassPositionOfItemClicked): RecyclerView.Adapter<CountryAdapter.MyViewHolder>() {
 
-    private var listCountry : List<Country>
+    private var listCountry: List<Country>
+    private var positionClicked: PassPositionOfItemClicked
     init {
-        this.listCountry = list
+        this.listCountry = resultList
+        this.positionClicked = clicked
     }
 
 
@@ -34,8 +37,13 @@ class CountryAdapter constructor(var list : List<Country>): RecyclerView.Adapter
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val country = listCountry.get(position)
-        holder.countryName.setText(country.name)
+
+        val country = listCountry?.get(position)
+        holder.countryName.setText(country?.name)
+
+        holder.itemView.setOnClickListener {
+            positionClicked.getPositionOfItemForSingleTapUpClick(holder.adapterPosition)
+        }
     }
 
     override fun getItemCount(): Int {

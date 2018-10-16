@@ -1,17 +1,61 @@
 
 package com.example.georgeissac.mvp.retrofit.response;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Index;
+import android.arch.persistence.room.PrimaryKey;
+
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+@Entity(tableName = "country",
+        indices = {@Index(value = "name"/*, unique = true*/)})
 public class Country {
 
+
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "did")
+    public int id;
+
+    @ColumnInfo(name = "name")
     @SerializedName("name")
     @Expose
     private String name;
 
+    @ColumnInfo(name = "alpha2Code")
+    @SerializedName("alpha2Code")
+    @Expose
+    private String alpha2Code;
+
+
+    @ColumnInfo(name = "alpha3Code")
+    @SerializedName("alpha3Code")
+    @Expose
+    private String alpha3Code;
+
+    @ColumnInfo(name = "capital")
+    @SerializedName("capital")
+    @Expose
+    private String capital;
+
     @Override
+    public String toString() {
+        return "Country{" +
+                "name='" + name + '\'' +
+                ", alpha2Code='" + alpha2Code + '\'' +
+                ", alpha3Code='" + alpha3Code + '\'' +
+                ", capital='" + capital + '\'' +
+                ", flag='" + flag + '\'' +
+                '}';
+    }
+
+    @SerializedName("flag")
+    @Expose
+    private String flag;
+
+    /*@Override
     public String toString() {
         return "Country{" +
                 "name='" + name + '\'' +
@@ -33,29 +77,22 @@ public class Country {
                 ", nativeName='" + nativeName + '\'' +
                 ", numericCode='" + numericCode + '\'' +
                 ", currencies=" + currencies +
-                ", languages=" + languages +
+                //", languages=" + languages +
                 ", translations=" + translations +
                 ", flag='" + flag + '\'' +
                 ", regionalBlocs=" + regionalBlocs +
                 ", cioc='" + cioc + '\'' +
                 '}';
-    }
+    }*/
 
-    @SerializedName("topLevelDomain")
+    /*@SerializedName("topLevelDomain")
     @Expose
     private List<String> topLevelDomain = null;
-    @SerializedName("alpha2Code")
-    @Expose
-    private String alpha2Code;
-    @SerializedName("alpha3Code")
-    @Expose
-    private String alpha3Code;
+
     @SerializedName("callingCodes")
     @Expose
     private List<String> callingCodes = null;
-    @SerializedName("capital")
-    @Expose
-    private String capital;
+
     @SerializedName("altSpellings")
     @Expose
     private List<String> altSpellings = null;
@@ -95,21 +132,19 @@ public class Country {
     @SerializedName("currencies")
     @Expose
     private List<Currency> currencies = null;
-    @SerializedName("languages")
+    *//*@SerializedName("languages")
     @Expose
-    private List<Language> languages = null;
+    private List<Language> languages = null;*//*
     @SerializedName("translations")
     @Expose
     private Translations translations;
-    @SerializedName("flag")
-    @Expose
-    private String flag;
+
     @SerializedName("regionalBlocs")
     @Expose
     private List<RegionalBloc> regionalBlocs = null;
     @SerializedName("cioc")
     @Expose
-    private String cioc;
+    private String cioc;*/
 
     public String getName() {
         return name;
@@ -119,13 +154,13 @@ public class Country {
         this.name = name;
     }
 
-    public List<String> getTopLevelDomain() {
+    /*public List<String> getTopLevelDomain() {
         return topLevelDomain;
     }
 
     public void setTopLevelDomain(List<String> topLevelDomain) {
         this.topLevelDomain = topLevelDomain;
-    }
+    }*/
 
     public String getAlpha2Code() {
         return alpha2Code;
@@ -143,13 +178,13 @@ public class Country {
         this.alpha3Code = alpha3Code;
     }
 
-    public List<String> getCallingCodes() {
+    /*public List<String> getCallingCodes() {
         return callingCodes;
     }
 
     public void setCallingCodes(List<String> callingCodes) {
         this.callingCodes = callingCodes;
-    }
+    }*/
 
     public String getCapital() {
         return capital;
@@ -159,7 +194,7 @@ public class Country {
         this.capital = capital;
     }
 
-    public List<String> getAltSpellings() {
+    /*public List<String> getAltSpellings() {
         return altSpellings;
     }
 
@@ -263,13 +298,13 @@ public class Country {
         this.currencies = currencies;
     }
 
-    public List<Language> getLanguages() {
+    *//*public List<Language> getLanguages() {
         return languages;
     }
 
     public void setLanguages(List<Language> languages) {
         this.languages = languages;
-    }
+    }*//*
 
     public Translations getTranslations() {
         return translations;
@@ -277,7 +312,7 @@ public class Country {
 
     public void setTranslations(Translations translations) {
         this.translations = translations;
-    }
+    }*/
 
     public String getFlag() {
         return flag;
@@ -287,7 +322,7 @@ public class Country {
         this.flag = flag;
     }
 
-    public List<RegionalBloc> getRegionalBlocs() {
+    /*public List<RegionalBloc> getRegionalBlocs() {
         return regionalBlocs;
     }
 
@@ -301,6 +336,6 @@ public class Country {
 
     public void setCioc(String cioc) {
         this.cioc = cioc;
-    }
+    }*/
 
 }
