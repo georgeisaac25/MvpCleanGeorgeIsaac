@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.example.georgeissac.mvp.R
 import com.example.georgeissac.mvp.interfaces.PassPositionOfItemClicked
-import com.example.georgeissac.mvp.retrofit.response.Country
+import com.example.georgeissac.mvp.usecase.getCountry.response.Country
 
 
-class CountryAdapter constructor(var resultList : List<Country>,var clicked: PassPositionOfItemClicked): RecyclerView.Adapter<CountryAdapter.MyViewHolder>() {
+class CountryAdapter constructor(var resultList : List<Country>, var clicked: PassPositionOfItemClicked): RecyclerView.Adapter<CountryAdapter.MyViewHolder>() {
 
     private var listCountry: List<Country>
     private var positionClicked: PassPositionOfItemClicked

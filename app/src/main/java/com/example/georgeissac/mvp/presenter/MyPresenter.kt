@@ -2,10 +2,10 @@ package com.example.georgeissac.mvp.presenter
 
 import com.example.georgeissac.mvp.model.CommunicateWithModelFromPresenter
 import com.example.georgeissac.mvp.model.GetAllCountries
-import com.example.georgeissac.mvp.retrofit.response.Country
+import com.example.georgeissac.mvp.usecase.getCountry.response.Country
 import com.example.georgeissac.mvp.view.ViewInterface
 
-class MyPresenter() : CommunicateWithPresenterFromView, CommunicateWithModelFromPresenter, Presenter {
+class MyPresenter : CommunicateWithPresenterFromView, CommunicateWithModelFromPresenter, Presenter {
 
 
     var view: ViewInterface? = null

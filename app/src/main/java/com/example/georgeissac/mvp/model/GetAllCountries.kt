@@ -3,8 +3,7 @@ package com.example.georgeissac.mvp.model
 import android.util.Log
 import com.example.georgeissac.mvp.retrofit.ApiClient
 import com.example.georgeissac.mvp.retrofit.ApiInterface
-import com.example.georgeissac.mvp.retrofit.response.Country
-import com.example.georgeissac.mvp.room.AppDatabase
+import com.example.georgeissac.mvp.usecase.getCountry.response.Country
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

@@ -1,44 +1,23 @@
 
-package com.example.georgeissac.mvp.retrofit.response;
+package com.example.georgeissac.mvp.usecase.getCountryOnSearch.response;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 
-import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-@Entity(tableName = "country",
-        indices = {@Index(value = "name"/*, unique = true*/)})
+
 public class Country {
 
-
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "did")
     public int id;
-
-    @ColumnInfo(name = "name")
-    @SerializedName("name")
-    @Expose
     private String name;
-
-    @ColumnInfo(name = "alpha2Code")
-    @SerializedName("alpha2Code")
-    @Expose
     private String alpha2Code;
-
-
-    @ColumnInfo(name = "alpha3Code")
-    @SerializedName("alpha3Code")
-    @Expose
     private String alpha3Code;
-
-    @ColumnInfo(name = "capital")
-    @SerializedName("capital")
-    @Expose
     private String capital;
+    private String flag;
 
     @Override
     public String toString() {
@@ -51,9 +30,7 @@ public class Country {
                 '}';
     }
 
-    @SerializedName("flag")
-    @Expose
-    private String flag;
+
 
     /*@Override
     public String toString() {

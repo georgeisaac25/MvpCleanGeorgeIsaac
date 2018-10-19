@@ -4,14 +4,14 @@ import android.arch.persistence.room.Database
 import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
 import android.content.Context
-import com.example.georgeissac.mvp.retrofit.response.Country
+import com.example.georgeissac.mvp.usecase.getCountry.response.Country
 
 @Database(entities = arrayOf(Country::class), version = 1)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun countryDao(): CountryDao
 
 
-    companion object {
+    /*companion object {
         private var INSTANCE: AppDatabase? = null
 
         fun getInstance(context: Context): AppDatabase? {
@@ -28,5 +28,5 @@ abstract class AppDatabase : RoomDatabase() {
         fun destroyInstance() {
             INSTANCE = null
         }
-    }
+    }*/
 }

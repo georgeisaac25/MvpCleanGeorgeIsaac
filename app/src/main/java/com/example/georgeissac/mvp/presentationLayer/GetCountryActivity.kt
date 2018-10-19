@@ -1,4 +1,4 @@
-package com.example.georgeissac.mvp
+package com.example.georgeissac.mvp.presentationLayer
 
 import android.arch.lifecycle.Observer
 import android.support.v7.app.AppCompatActivity
@@ -11,22 +11,23 @@ import android.view.View
 import com.example.georgeissac.mvp.adapter.CountryAdapter
 import com.example.georgeissac.mvp.interfaces.PassPositionOfItemClicked
 import com.example.georgeissac.mvp.presenter.GetPresenter
-import com.example.georgeissac.mvp.presenter.MyPresenter
-import com.example.georgeissac.mvp.room.AppDatabase
 import com.example.georgeissac.mvp.view.ViewInterface
 import android.support.v7.widget.*
 import android.view.Menu
-import com.example.georgeissac.mvp.retrofit.response.Country
+import com.example.georgeissac.mvp.MyApp
+import com.example.georgeissac.mvp.R
+import com.example.georgeissac.mvp.retrofit.ApiInterface
+import com.example.georgeissac.mvp.room.MyRepository
+import com.example.georgeissac.mvp.usecase.addCountry.AddCountry
+import com.example.georgeissac.mvp.usecase.getCountry.response.Country
+import com.example.georgeissac.mvp.usecase.getCountryOnSearch.SearchCountry
+import javax.inject.Inject
 
 
-/*
-class MainActivity : AppCompatActivity(), PassPositionOfItemClicked, ViewInterface, LoaderManager.LoaderCallbacks<MyPresenter> {
-    override fun showListFromDB(list: MutableList<Country>?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+class GetCountryActivity : AppCompatActivity(), PassPositionOfItemClicked, ViewInterface, LoaderManager.LoaderCallbacks<CountryPresenter> {
 
     private val LOADER_ID_PRESENTER = 103
-    var presenter: MyPresenter? = null
+    var presenter: CountryPresenter? = null
 
 
     lateinit var list: List<Country>
@@ -34,10 +35,28 @@ class MainActivity : AppCompatActivity(), PassPositionOfItemClicked, ViewInterfa
     lateinit var countryAdapter: CountryAdapter
     private var searchView: SearchView? = null
 
+    @Inject lateinit var
+            retrofitInstance: ApiInterface
+
+    @Inject lateinit var
+            repo: MyRepository
+
+
+    @Inject lateinit var
+            searchCountry: SearchCountry
+
+    @Inject lateinit var
+            addCountry: AddCountry
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        /*val appComponent = DaggerAppComponent.builder().dataBModule(DataModule(this)).useCaseModule(UseCaseModule()).build()
+        appComponent.inject(this)*/
+
+        (application as MyApp).apiComponent.inject(this)
 
         recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
         val mLayoutManager = LinearLayoutManager(applicationContext)
@@ -66,7 +85,8 @@ class MainActivity : AppCompatActivity(), PassPositionOfItemClicked, ViewInterfa
     override fun onStart() {
         // TODO Auto-generated method stub
         super.onStart();
-        presenter?.onViewAttached(this);
+        presenter?.onViewAttached(this)
+        presenter?.getCountyList()
 
     }
 
@@ -74,22 +94,20 @@ class MainActivity : AppCompatActivity(), PassPositionOfItemClicked, ViewInterfa
         var country = list.get(position)
     }
 
-    override fun showList(result: List<Country>) {
+    override fun showList(result: MutableList<Country>) {
         if (result.size > 0) {
             this.list = result
-            countryAdapter = CountryAdapter(list, this@MainActivity)
-            Log.e("insert", "insert")
+            countryAdapter = CountryAdapter(list, this@GetCountryActivity)
+            Log.e("GetCountryActivity", "insert")
 
             Thread(Runnable {
-
-
-                */
-/*if(AppDatabase.getInstance(this)!!.countryDao().getIfExist(list.get(0).name).size==0){
+                /*TODO check if country already exists
+                if(AppDatabase.getInstance(this)!!.countryDao().getIfExist(list.get(0).name).size==0){
                     AppDatabase.getInstance(this)!!.countryDao().insert(list)
-                }*//*
+                }*/
 
-
-
+                presenter?.onViewAttached(this@GetCountryActivity)
+                presenter?.addCountries(list,addCountry)
 
             }).start()
             recyclerView.setAdapter(countryAdapter)
@@ -101,21 +119,21 @@ class MainActivity : AppCompatActivity(), PassPositionOfItemClicked, ViewInterfa
     }
 
 
-    override fun onLoadFinished(p0: Loader<MyPresenter>, presenter: MyPresenter?) {
+    override fun onLoadFinished(p0: Loader<CountryPresenter>, presenter: CountryPresenter?) {
         if (presenter != null) {
-            if (presenter is MyPresenter) {
-                this.presenter = presenter as MyPresenter
+            if (presenter is CountryPresenter) {
+                this.presenter = presenter
 
             }
         }
     }
 
-    override fun onLoaderReset(p0: Loader<MyPresenter>) {
+    override fun onLoaderReset(p0: Loader<CountryPresenter>) {
 
     }
 
-    override fun onCreateLoader(p0: Int, p1: Bundle?): Loader<MyPresenter> {
-        return GetPresenter(this, "MyPresenter")
+    override fun onCreateLoader(p0: Int, p1: Bundle?): Loader<CountryPresenter> {
+        return GetPresenter(this, "CountryPresenter")
     }
 
 
@@ -134,21 +152,30 @@ class MainActivity : AppCompatActivity(), PassPositionOfItemClicked, ViewInterfa
             var searchText = searchText
             searchText = "%$searchText%"
 
-            */
-/*AppDatabase.getInstance(this@MainActivity)!!.countryDao().getSearchList(searchText)
-                    .observe(this@MainActivity, object : Observer<List<Country>> {
+            /*AppDatabase.getInstance(this@GetCountryActivity)!!.countryDao().getSearchList(searchText)
+                    .observe(this@GetCountryActivity, object : Observer<List<Country>> {
                         override fun onChanged(@Nullable countrySearchList: List<Country>?) {
                             if (countrySearchList == null) {
                                 return
                             }
                             list = countrySearchList
-                            countryAdapter = CountryAdapter(list, this@MainActivity)
+                            countryAdapter = CountryAdapter(list, this@GetCountryActivity)
                             recyclerView.setAdapter(countryAdapter)
                         }
-                    })*//*
+                    })*/
 
+            presenter?.onViewAttached(this@GetCountryActivity)
+            presenter?.searchCountry(searchText,searchCountry)!!.observe(this@GetCountryActivity, object : Observer<List<Country>> {
+                override fun onChanged(@Nullable countrySearchList: List<Country>?) {
+                    if (countrySearchList == null) {
+                        return
+                    }
+                    list = countrySearchList
+                    countryAdapter = CountryAdapter(list, this@GetCountryActivity)
+                    recyclerView.setAdapter(countryAdapter)
+                }
+            })
         }
     }
 
 }
-*/

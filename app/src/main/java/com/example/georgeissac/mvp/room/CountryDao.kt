@@ -1,9 +1,8 @@
 package com.example.georgeissac.mvp.room
 
 import android.arch.persistence.room.*
-import com.example.georgeissac.mvp.retrofit.response.Country
 import android.arch.lifecycle.LiveData
-
+import com.example.georgeissac.mvp.usecase.getCountry.response.Country
 
 
 @Dao
