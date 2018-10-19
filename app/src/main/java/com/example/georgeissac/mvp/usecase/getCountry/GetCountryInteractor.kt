@@ -5,7 +5,7 @@ import com.example.georgeissac.mvp.usecase.getCountry.repository.CommunicateFrom
 import com.example.georgeissac.mvp.usecase.getCountry.repository.CommunicateWithPresenterFromInteractor
 import com.example.georgeissac.mvp.usecase.getCountry.response.Country
 
-class GetCountryInteractor(var communicateWithModelFromInteractors: CommunicateWithPresenterFromInteractor)
+class GetCountryInteractor(communicateWithModelFromInteractors: CommunicateWithPresenterFromInteractor)
     : CommunicateFromEntityToInteractor{
 
     private var communicateWithModelFromInteractor: CommunicateWithPresenterFromInteractor

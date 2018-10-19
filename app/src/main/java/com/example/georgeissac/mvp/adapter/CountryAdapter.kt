@@ -1,30 +1,37 @@
 package com.example.georgeissac.mvp.adapter
 
+import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import com.example.georgeissac.mvp.R
 import com.example.georgeissac.mvp.interfaces.PassPositionOfItemClicked
 import com.example.georgeissac.mvp.usecase.getCountry.response.Country
+import com.example.georgeissac.mvp.util.Utlities
 
 
-class CountryAdapter constructor(var resultList : List<Country>, var clicked: PassPositionOfItemClicked): RecyclerView.Adapter<CountryAdapter.MyViewHolder>() {
+class CountryAdapter constructor(context : Context ,resultList : List<Country>,  clicked: PassPositionOfItemClicked): RecyclerView.Adapter<CountryAdapter.MyViewHolder>() {
 
     private var listCountry: List<Country>
     private var positionClicked: PassPositionOfItemClicked
+    private var c : Context
     init {
         this.listCountry = resultList
         this.positionClicked = clicked
+        this.c = context
     }
 
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
     {
         var countryName : TextView
+        var image : ImageView
         init {
             countryName = itemView.findViewById (R.id.countryName);
+            image = itemView.findViewById (R.id.imageView);
         }
 
     }
@@ -40,6 +47,8 @@ class CountryAdapter constructor(var resultList : List<Country>, var clicked: Pa
 
         val country = listCountry?.get(position)
         holder.countryName.setText(country?.name)
+
+        Utlities().setImage(country.flag,holder.image,context = c)
 
         holder.itemView.setOnClickListener {
             positionClicked.getPositionOfItemForSingleTapUpClick(holder.adapterPosition)

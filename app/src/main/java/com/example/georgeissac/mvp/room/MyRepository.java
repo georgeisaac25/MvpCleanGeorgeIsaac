@@ -22,7 +22,7 @@ public class MyRepository {
         this.repoDao = repoDao;
     }
 
-    public List<Country> getAllFromDatabase(){
+    public List<Country> all(){
         return  repoDao.getAll();
     }
 

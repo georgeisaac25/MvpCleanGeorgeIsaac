@@ -1,6 +1,7 @@
 package com.example.georgeissac.mvp.presentationLayer
 
 import android.arch.lifecycle.Observer
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.annotation.Nullable
@@ -14,6 +15,7 @@ import com.example.georgeissac.mvp.presenter.GetPresenter
 import com.example.georgeissac.mvp.view.ViewInterface
 import android.support.v7.widget.*
 import android.view.Menu
+import android.widget.Toast
 import com.example.georgeissac.mvp.MyApp
 import com.example.georgeissac.mvp.R
 import com.example.georgeissac.mvp.retrofit.ApiInterface
@@ -21,6 +23,8 @@ import com.example.georgeissac.mvp.room.MyRepository
 import com.example.georgeissac.mvp.usecase.addCountry.AddCountry
 import com.example.georgeissac.mvp.usecase.getCountry.response.Country
 import com.example.georgeissac.mvp.usecase.getCountryOnSearch.SearchCountry
+import com.example.georgeissac.mvp.util.Utlities
+import okhttp3.internal.Util
 import javax.inject.Inject
 
 
@@ -53,9 +57,6 @@ class GetCountryActivity : AppCompatActivity(), PassPositionOfItemClicked, ViewI
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        /*val appComponent = DaggerAppComponent.builder().dataBModule(DataModule(this)).useCaseModule(UseCaseModule()).build()
-        appComponent.inject(this)*/
-
         (application as MyApp).apiComponent.inject(this)
 
         recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
@@ -86,26 +87,34 @@ class GetCountryActivity : AppCompatActivity(), PassPositionOfItemClicked, ViewI
         // TODO Auto-generated method stub
         super.onStart();
         presenter?.onViewAttached(this)
-        presenter?.getCountyList()
+        if(Utlities.isNetAvailable(this)){
+            presenter?.getCountyList()
+        }
+        else{
+            var searchText = ""
+            searchText = "%$searchText%"
+            search(searchText)
+        }
+
 
     }
 
     override fun getPositionOfItemForSingleTapUpClick(position: Int) {
         var country = list.get(position)
+
+        val intent = Intent(this, ShowActivity::class.java)
+        intent.putExtra("countryImg", country.flag)
+        intent.putExtra("countryName", country.name)
+        startActivity(intent)
     }
 
     override fun showList(result: MutableList<Country>) {
         if (result.size > 0) {
             this.list = result
-            countryAdapter = CountryAdapter(list, this@GetCountryActivity)
+            countryAdapter = CountryAdapter(this,list, this@GetCountryActivity)
             Log.e("GetCountryActivity", "insert")
 
             Thread(Runnable {
-                /*TODO check if country already exists
-                if(AppDatabase.getInstance(this)!!.countryDao().getIfExist(list.get(0).name).size==0){
-                    AppDatabase.getInstance(this)!!.countryDao().insert(list)
-                }*/
-
                 presenter?.onViewAttached(this@GetCountryActivity)
                 presenter?.addCountries(list,addCountry)
 
@@ -121,15 +130,12 @@ class GetCountryActivity : AppCompatActivity(), PassPositionOfItemClicked, ViewI
 
     override fun onLoadFinished(p0: Loader<CountryPresenter>, presenter: CountryPresenter?) {
         if (presenter != null) {
-            if (presenter is CountryPresenter) {
-                this.presenter = presenter
-
-            }
+            this.presenter = presenter
         }
     }
 
     override fun onLoaderReset(p0: Loader<CountryPresenter>) {
-
+        presenter = null
     }
 
     override fun onCreateLoader(p0: Int, p1: Bundle?): Loader<CountryPresenter> {
@@ -152,30 +158,28 @@ class GetCountryActivity : AppCompatActivity(), PassPositionOfItemClicked, ViewI
             var searchText = searchText
             searchText = "%$searchText%"
 
-            /*AppDatabase.getInstance(this@GetCountryActivity)!!.countryDao().getSearchList(searchText)
-                    .observe(this@GetCountryActivity, object : Observer<List<Country>> {
-                        override fun onChanged(@Nullable countrySearchList: List<Country>?) {
-                            if (countrySearchList == null) {
-                                return
-                            }
-                            list = countrySearchList
-                            countryAdapter = CountryAdapter(list, this@GetCountryActivity)
-                            recyclerView.setAdapter(countryAdapter)
-                        }
-                    })*/
-
             presenter?.onViewAttached(this@GetCountryActivity)
-            presenter?.searchCountry(searchText,searchCountry)!!.observe(this@GetCountryActivity, object : Observer<List<Country>> {
-                override fun onChanged(@Nullable countrySearchList: List<Country>?) {
-                    if (countrySearchList == null) {
-                        return
-                    }
-                    list = countrySearchList
-                    countryAdapter = CountryAdapter(list, this@GetCountryActivity)
-                    recyclerView.setAdapter(countryAdapter)
-                }
-            })
+            search(searchText)
         }
+
+
+    }
+
+    fun search(searchText: String){
+        presenter?.searchCountry(searchText, searchCountry)!!.observe(this@GetCountryActivity, object : Observer<List<Country>> {
+            override fun onChanged(@Nullable countrySearchList: List<Country>?) {
+                if (countrySearchList == null) {
+                    return
+                }
+                list = countrySearchList
+                if (list.size > 0) {
+                    countryAdapter = CountryAdapter(this@GetCountryActivity, list, this@GetCountryActivity)
+                    recyclerView.setAdapter(countryAdapter)
+                } else {
+                    Toast.makeText(this@GetCountryActivity, "No List", Toast.LENGTH_LONG).show()
+                }
+            }
+        })
     }
 
 }

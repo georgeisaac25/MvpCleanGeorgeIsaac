@@ -5,13 +5,15 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 @Entity(tableName = "country",
-        indices = {@Index(value = "name"/*, unique = true*/)})
-public class Country {
+        indices = {@Index(value = "name", unique = true)})
+public class Country /*implements Parcelable */{
 
 
     @PrimaryKey(autoGenerate = true)
@@ -38,6 +40,42 @@ public class Country {
     @SerializedName("capital")
     @Expose
     private String capital;
+
+    /*protected Country(Parcel in) {
+        id = in.readInt();
+        name = in.readString();
+        alpha2Code = in.readString();
+        alpha3Code = in.readString();
+        capital = in.readString();
+        flag = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(name);
+        dest.writeString(alpha2Code);
+        dest.writeString(alpha3Code);
+        dest.writeString(capital);
+        dest.writeString(flag);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Country> CREATOR = new Creator<Country>() {
+        @Override
+        public Country createFromParcel(Parcel in) {
+            return new Country(in);
+        }
+
+        @Override
+        public Country[] newArray(int size) {
+            return new Country[size];
+        }
+    };*/
 
     @Override
     public String toString() {

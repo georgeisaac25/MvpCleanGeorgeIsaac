@@ -9,6 +9,10 @@ class AddCountry(data : MyRepository){
 
     fun addCountries(countryList :  List<Country>)  {
         val request = RequestAddCountry(countryList)
-        return myRepository.insertData(request.addCountryList)
+        /*var list : List<Country> = myRepository.all();
+        if (list.size>0){
+            return
+        }*/
+        myRepository.insertData(request.addCountryList)
     }
 }

@@ -11,7 +11,7 @@ interface CountryDao{
     @Query("SELECT * FROM country")
     fun getAll(): List<Country>
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(list: List<Country>)
 
     @Query("SELECT * FROM country WHERE name LIKE :name")
@@ -19,12 +19,5 @@ interface CountryDao{
 
     @Query("SELECT * FROM country WHERE name = :name")
     fun getIfExist(name: String): List<Country>
-
-
-    /*@Delete
-    fun delete(task: Task)
-
-    @Update
-    fun update(task: Task)*/
 
 }
