@@ -39,17 +39,21 @@ class GetCountryActivity : AppCompatActivity(), PassPositionOfItemClicked, ViewI
     lateinit var countryAdapter: CountryAdapter
     private var searchView: SearchView? = null
 
-    @Inject lateinit var
+    @Inject
+    lateinit var
             retrofitInstance: ApiInterface
 
-    @Inject lateinit var
+    @Inject
+    lateinit var
             repo: MyRepository
 
 
-    @Inject lateinit var
+    @Inject
+    lateinit var
             searchCountry: SearchCountry
 
-    @Inject lateinit var
+    @Inject
+    lateinit var
             addCountry: AddCountry
 
 
@@ -59,15 +63,15 @@ class GetCountryActivity : AppCompatActivity(), PassPositionOfItemClicked, ViewI
 
         (application as MyApp).apiComponent.inject(this)
 
-        recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
+        recyclerView = findViewById(R.id.recyclerView)
         val mLayoutManager = LinearLayoutManager(applicationContext)
-        recyclerView.setLayoutManager(mLayoutManager)
-        recyclerView.setItemAnimator(DefaultItemAnimator())
+        recyclerView.layoutManager = mLayoutManager
+        recyclerView.itemAnimator = DefaultItemAnimator()
 
         val myToolbar = findViewById<View>(R.id.toolbar) as Toolbar
         setSupportActionBar(myToolbar)
 
-        getSupportLoaderManager().initLoader(LOADER_ID_PRESENTER, null, this);
+        supportLoaderManager.initLoader(LOADER_ID_PRESENTER, null, this);
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -76,7 +80,7 @@ class GetCountryActivity : AppCompatActivity(), PassPositionOfItemClicked, ViewI
         searchView = menu.findItem(R.id.action_search)
                 .getActionView() as SearchView
 
-        searchView?.setSubmitButtonEnabled(true)
+        searchView?.isSubmitButtonEnabled = true
         searchView?.setOnQueryTextListener(onQueryTextListener)
 
         return super.onCreateOptionsMenu(menu)
@@ -87,16 +91,18 @@ class GetCountryActivity : AppCompatActivity(), PassPositionOfItemClicked, ViewI
         // TODO Auto-generated method stub
         super.onStart();
         presenter?.onViewAttached(this)
-        if(Utlities.isNetAvailable(this)){
+        if (Utlities.isNetAvailable(this)) {
             presenter?.getCountyList()
-        }
-        else{
+        } else {
             var searchText = ""
             searchText = "%$searchText%"
             search(searchText)
         }
+    }
 
-
+    override fun onStop() {
+        presenter?.onViewDetached()
+        super.onStop()
     }
 
     override fun getPositionOfItemForSingleTapUpClick(position: Int) {
@@ -111,20 +117,23 @@ class GetCountryActivity : AppCompatActivity(), PassPositionOfItemClicked, ViewI
     override fun showList(result: MutableList<Country>) {
         if (result.size > 0) {
             this.list = result
-            countryAdapter = CountryAdapter(this,list, this@GetCountryActivity)
+            countryAdapter = CountryAdapter(this, list, this@GetCountryActivity)
             Log.e("GetCountryActivity", "insert")
 
-            Thread(Runnable {
-                presenter?.onViewAttached(this@GetCountryActivity)
-                presenter?.addCountries(list,addCountry)
-
-            }).start()
-            recyclerView.setAdapter(countryAdapter)
+            presenter?.onViewAttached(this@GetCountryActivity)
+            presenter?.addCountries(list,addCountry = addCountry)
+            recyclerView.adapter = countryAdapter
         }
     }
 
     override fun showError(error: String) {
         Log.e("error", error)
+    }
+
+    override fun showListFromDB(result: List<Country>) {
+        this.list = result
+        countryAdapter = CountryAdapter(this, list, this@GetCountryActivity)
+        recyclerView.adapter = countryAdapter
     }
 
 
@@ -157,7 +166,6 @@ class GetCountryActivity : AppCompatActivity(), PassPositionOfItemClicked, ViewI
         private fun getDealsFromDb(searchText: String) {
             var searchText = searchText
             searchText = "%$searchText%"
-
             presenter?.onViewAttached(this@GetCountryActivity)
             search(searchText)
         }
@@ -165,7 +173,10 @@ class GetCountryActivity : AppCompatActivity(), PassPositionOfItemClicked, ViewI
 
     }
 
-    fun search(searchText: String){
+    fun search(searchText: String) {
+
+        presenter?.searchCountry(searchText,searchCountry)
+        /* Works well with live data
         presenter?.searchCountry(searchText, searchCountry)!!.observe(this@GetCountryActivity, object : Observer<List<Country>> {
             override fun onChanged(@Nullable countrySearchList: List<Country>?) {
                 if (countrySearchList == null) {
@@ -179,7 +190,9 @@ class GetCountryActivity : AppCompatActivity(), PassPositionOfItemClicked, ViewI
                     Toast.makeText(this@GetCountryActivity, "No List", Toast.LENGTH_LONG).show()
                 }
             }
-        })
+        })*/
+
+        presenter?.searchCountry(searchText,searchCountry)
     }
 
 }

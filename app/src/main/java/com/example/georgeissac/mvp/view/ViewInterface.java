@@ -8,5 +8,5 @@ import java.util.List;
 public interface ViewInterface {
 	void showList(List<Country> list);
 	void showError(String error);
-
+	void showListFromDB(List<Country> list);
 }

@@ -6,6 +6,7 @@ import android.content.Context.CONNECTIVITY_SERVICE
 import android.graphics.drawable.PictureDrawable
 import android.net.ConnectivityManager
 import android.net.Uri
+import android.util.Log
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -16,8 +17,11 @@ import com.example.georgeissac.mvp.R
 import com.example.georgeissac.mvp.svg.SvgDecoder
 import com.example.georgeissac.mvp.svg.SvgDrawableTranscoder
 import com.example.georgeissac.mvp.svg.SvgSoftwareLayerSetter
+import io.reactivex.Observable
 import kotlinx.android.synthetic.main.show_activity.*
+import org.reactivestreams.Subscriber
 import java.io.InputStream
+import java.util.concurrent.Callable
 
 
 class Utlities {
@@ -54,6 +58,32 @@ class Utlities {
                 .override(100, 200)
                 .into(imageView)
     }
+
+    //RxJava try
+
+
+    /*private static <T> Observable<T> makeObservable(final Callable<T> func) {
+        return Observable.create(
+                 Observable.OnSubscribe<T>() {
+                    @Override
+                    public void call(Subscriber <? super T> subscriber) {
+                    try {
+                        subscriber.onNext(func.call());
+                    } catch(Exception ex) {
+                        Log.e("Util", "Error reading from the database", ex);
+                    }
+                }
+                });
+    }*/
+
+    fun <T> makeObservable(func : Callable<T>) : Observable<T>{
+        return Observable.create<T> {
+            it.onNext(func.call())
+        }
+    }
+
+
+
 
 
 }

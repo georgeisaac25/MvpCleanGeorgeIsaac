@@ -10,6 +10,10 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.Maybe;
+import io.reactivex.Observable;
+import io.reactivex.Single;
+
 public class MyRepository {
 
     /*
@@ -30,8 +34,13 @@ public class MyRepository {
         return  repoDao.getSearchList(searchString);
     }
 
-    public void insertData(List<Country> list){
-        repoDao.insert(list);
+    public Maybe<List<Country>> searchByTextUsingRx(String searchString){
+        return  repoDao.getSearchListUsingRx(searchString);
+    }
+
+
+    public List<Long> insertData(List<Country> list) {
+        return repoDao.insert(list);
     }
 
 
