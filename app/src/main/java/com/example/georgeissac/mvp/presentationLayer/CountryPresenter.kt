@@ -2,21 +2,18 @@ package com.example.georgeissac.mvp.presentationLayer
 
 import android.arch.lifecycle.LiveData
 import android.util.Log
-import com.example.georgeissac.mvp.presenter.CommunicateWithPresenterFromView
-import com.example.georgeissac.mvp.usecase.addCountry.AddCountry
-import com.example.georgeissac.mvp.usecase.addCountry.ResponseOfAddCountry
-import com.example.georgeissac.mvp.usecase.getCountry.GetCountryInteractor
-import com.example.georgeissac.mvp.usecase.getCountry.repository.CommunicateWithPresenterFromInteractor
-import com.example.georgeissac.mvp.usecase.getCountry.response.Country
-import com.example.georgeissac.mvp.usecase.getCountryOnSearch.SearchCountry
-import com.example.georgeissac.mvp.view.ViewInterface
-import io.reactivex.Observable
+import com.example.georgeissac.mvp.presentationLayer.interfaces.CommunicateWithPresenterFromView
+import com.example.georgeissac.mvp.presentationLayer.interfaces.ViewInterface
+import com.example.georgeissac.mvp.domainLayer.addCountry.AddCountry
+import com.example.georgeissac.mvp.domainLayer.addCountry.ResponseOfAddCountry
+import com.example.georgeissac.mvp.domainLayer.getCountry.GetCountryInteractor
+import com.example.georgeissac.mvp.domainLayer.getCountry.repository.CommunicateWithPresenterFromInteractor
+import com.example.georgeissac.mvp.domainLayer.getCountry.response.Country
+import com.example.georgeissac.mvp.domainLayer.getCountryOnSearch.SearchCountry
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
 import io.reactivex.observers.DisposableMaybeObserver
 import io.reactivex.observers.DisposableObserver
-import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 
 class CountryPresenter : CommunicateWithPresenterFromInteractor,
@@ -84,7 +81,7 @@ class CountryPresenter : CommunicateWithPresenterFromInteractor,
                     }
 
                     override fun onNext(t: ResponseOfAddCountry) {
-                        Log.e("success in","insertion ${t.count}")
+                        Log.e("success in","insertion ${t.getSucessCount()}")
                     }
 
                     override fun onError(e: Throwable) {

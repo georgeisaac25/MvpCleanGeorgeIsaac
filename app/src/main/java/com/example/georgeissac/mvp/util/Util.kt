@@ -14,9 +14,9 @@ import com.bumptech.glide.load.model.StreamEncoder
 import com.bumptech.glide.load.resource.file.FileToStreamDecoder
 import com.caverock.androidsvg.SVG
 import com.example.georgeissac.mvp.R
-import com.example.georgeissac.mvp.svg.SvgDecoder
-import com.example.georgeissac.mvp.svg.SvgDrawableTranscoder
-import com.example.georgeissac.mvp.svg.SvgSoftwareLayerSetter
+import com.example.georgeissac.mvp.presentationLayer.svg.SvgDecoder
+import com.example.georgeissac.mvp.presentationLayer.svg.SvgDrawableTranscoder
+import com.example.georgeissac.mvp.presentationLayer.svg.SvgSoftwareLayerSetter
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.show_activity.*
 import org.reactivestreams.Subscriber
@@ -24,7 +24,7 @@ import java.io.InputStream
 import java.util.concurrent.Callable
 
 
-class Utlities {
+class Utilities {
 
     companion object {
         fun isNetAvailable(context: Context) : Boolean {

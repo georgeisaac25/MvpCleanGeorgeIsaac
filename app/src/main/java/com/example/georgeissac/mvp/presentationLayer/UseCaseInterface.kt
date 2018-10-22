@@ -1,9 +1,9 @@
 package com.example.georgeissac.mvp.presentationLayer
 
 import android.arch.lifecycle.LiveData
-import com.example.georgeissac.mvp.usecase.addCountry.AddCountry
-import com.example.georgeissac.mvp.usecase.getCountry.response.Country
-import com.example.georgeissac.mvp.usecase.getCountryOnSearch.SearchCountry
+import com.example.georgeissac.mvp.domainLayer.addCountry.AddCountry
+import com.example.georgeissac.mvp.domainLayer.getCountry.response.Country
+import com.example.georgeissac.mvp.domainLayer.getCountryOnSearch.SearchCountry
 
 interface UseCaseInterface {
     fun searchCountryUsingLiveData(string: String, searchCountry: SearchCountry) : LiveData<List<Country>>

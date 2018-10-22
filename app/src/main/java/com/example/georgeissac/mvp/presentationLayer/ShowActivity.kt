@@ -4,22 +4,17 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.example.georgeissac.mvp.R
 import kotlinx.android.synthetic.main.show_activity.*
-import android.content.Intent
-import android.util.Log
-import com.example.georgeissac.mvp.usecase.getCountry.response.Country
 import com.bumptech.glide.load.resource.file.FileToStreamDecoder
 import android.graphics.drawable.PictureDrawable
 import android.net.Uri
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.model.StreamEncoder
 import com.caverock.androidsvg.SVG
-import com.example.georgeissac.mvp.svg.SvgDecoder
-import com.example.georgeissac.mvp.svg.SvgDrawableTranscoder
-import com.example.georgeissac.mvp.svg.SvgSoftwareLayerSetter
 import java.io.InputStream
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-
-
+import com.example.georgeissac.mvp.presentationLayer.svg.SvgDecoder
+import com.example.georgeissac.mvp.presentationLayer.svg.SvgDrawableTranscoder
+import com.example.georgeissac.mvp.presentationLayer.svg.SvgSoftwareLayerSetter
 
 
 class ShowActivity : AppCompatActivity() {

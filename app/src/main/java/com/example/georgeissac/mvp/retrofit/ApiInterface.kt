@@ -1,6 +1,6 @@
 package com.example.georgeissac.mvp.retrofit
 
-import com.example.georgeissac.mvp.usecase.getCountry.response.Country
+import com.example.georgeissac.mvp.domainLayer.getCountry.response.Country
 import retrofit2.Call
 import retrofit2.http.GET
 

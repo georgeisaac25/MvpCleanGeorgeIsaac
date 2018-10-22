@@ -1,12 +1,11 @@
 package com.example.georgeissac.mvp;
 
 import android.app.Application;
-import android.arch.persistence.room.RoomDatabase;
 
-import com.example.georgeissac.mvp.di.ApiComponent;
-import com.example.georgeissac.mvp.di.ApiServiceModule;
-import com.example.georgeissac.mvp.di.DaggerApiComponent;
-import com.example.georgeissac.mvp.di.DatabaseModule;
+import com.example.georgeissac.mvp.dependencyInjection.ApiComponent;
+import com.example.georgeissac.mvp.dependencyInjection.ApiServiceModule;
+import com.example.georgeissac.mvp.dependencyInjection.DaggerApiComponent;
+import com.example.georgeissac.mvp.dependencyInjection.DatabaseModule;
 import com.example.georgeissac.mvp.retrofit.ApiInterface;
 
 public class MyApp extends Application {
