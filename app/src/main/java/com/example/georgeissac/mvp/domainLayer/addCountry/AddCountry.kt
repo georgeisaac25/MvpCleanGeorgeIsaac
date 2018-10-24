@@ -14,7 +14,7 @@ class AddCountry(data : MyRepository){
         return putAllCountry(request.addCountryList)
     }
 
-    fun putAllCountry( list : List<Country> ) : Observable<ResponseOfAddCountry>{
+    private fun putAllCountry( list : List<Country> ) : Observable<ResponseOfAddCountry>{
         return Observable.fromCallable(object : Callable<ResponseOfAddCountry>{
             override fun call(): ResponseOfAddCountry {
                 val size = myRepository.insertData(list).size

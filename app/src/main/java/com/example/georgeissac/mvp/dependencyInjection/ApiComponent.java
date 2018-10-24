@@ -7,12 +7,11 @@ import com.example.georgeissac.mvp.retrofit.ApiInterface;
 
 import dagger.Component;
 
-@Component(modules = {DatabaseModule.class,ApiServiceModule.class,ContextModule.class,UtilitiesModule.class})
+@Component(modules = {DatabaseModule.class, ApiServiceModule.class, ContextModule.class, UtilitiesModule.class})
 public interface ApiComponent {
-   ApiInterface getApiInterface();
-    /*MyRepository getRepository();*/
-
+    ApiInterface getApiInterface();
 
     void inject(GetCountryActivity getCountryActivity);
+
     void inject(ShowCountryDetailActivity showCountryDetailActivity);
 }

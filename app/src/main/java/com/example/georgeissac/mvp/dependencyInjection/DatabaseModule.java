@@ -29,7 +29,6 @@ public class DatabaseModule {
         return new MyRepository(repoDao);
     }
 
-
     @Provides
     public CountryDao provideDao(AppDatabase database){
         return database.countryDao();
@@ -49,6 +48,4 @@ public class DatabaseModule {
     AddCountry providesAddCountry(MyRepository myRepository) {
         return new AddCountry(myRepository);
     }
-
-
 }

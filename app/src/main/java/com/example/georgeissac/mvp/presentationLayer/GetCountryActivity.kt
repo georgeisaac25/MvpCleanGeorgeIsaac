@@ -51,7 +51,7 @@ class GetCountryActivity : AppCompatActivity(), PassPositionOfItemClicked, ViewI
         val myToolbar = findViewById<View>(R.id.toolbar) as Toolbar
         setSupportActionBar(myToolbar)
 
-        presenter = CountryPresenter(this,searchCountry,addCountry,utilities)
+        presenter = CountryPresenter(this, searchCountry, addCountry, utilities)
         presenter?.getData()
     }
 
@@ -64,10 +64,10 @@ class GetCountryActivity : AppCompatActivity(), PassPositionOfItemClicked, ViewI
     }
 
     override fun getPositionOfItemForSingleTapUpClick(position: Int) {
-        presenter?.getSelectedCountry(position,list)
+        presenter?.getSelectedCountry(position, list)
     }
 
-    override fun naviagateToShowCountryDetailActivity(country: Country?) {
+    override fun navigateToShowCountryDetailActivity(country: Country?) {
         val intent = Intent(this, ShowCountryDetailActivity::class.java)
         intent.putExtra("countryImg", country?.flag)
         intent.putExtra("countryName", country?.name)
@@ -78,13 +78,13 @@ class GetCountryActivity : AppCompatActivity(), PassPositionOfItemClicked, ViewI
         Log.e("GetCountryActivity", "insert")
         this.list = list
         presenter?.addCountries(list)
-        countryAdapter = CountryAdapter(list, this@GetCountryActivity,utilities)
+        countryAdapter = CountryAdapter(list, this@GetCountryActivity, utilities)
         recyclerView.adapter = countryAdapter
     }
 
     override fun showError(error: String) {
         Log.e("error", error)
-        Toast.makeText(this,"Please try again",Toast.LENGTH_LONG).show()
+        Toast.makeText(this, "Please try again", Toast.LENGTH_LONG).show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -100,7 +100,7 @@ class GetCountryActivity : AppCompatActivity(), PassPositionOfItemClicked, ViewI
     }
 
     private val onQueryTextListener = object : SearchView.OnQueryTextListener {
-        override fun onQueryTextSubmit(searchText:  String): Boolean {
+        override fun onQueryTextSubmit(searchText: String): Boolean {
             presenter?.searchInDb(searchText)
             return true
         }

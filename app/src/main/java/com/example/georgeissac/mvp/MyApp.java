@@ -23,12 +23,7 @@ public class MyApp extends Application {
                 .build();
     }
 
-    public ApiInterface getNetComponent() {
-        return apiComponent.getApiInterface();
-    }
-
     public ApiComponent getApiComponent() {
         return apiComponent;
     }
-
 }

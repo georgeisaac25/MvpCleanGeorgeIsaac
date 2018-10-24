@@ -5,8 +5,6 @@ import com.example.georgeissac.mvp.domainLayer.getCountry.response.Country;
 import java.util.List;
 
 public interface CommunicateFromEntityToInteractor {
-
     void setResultWhenSucess(List<Country> result);
     void setResultWhenFailed(String resultWhenFailed);
-
 }

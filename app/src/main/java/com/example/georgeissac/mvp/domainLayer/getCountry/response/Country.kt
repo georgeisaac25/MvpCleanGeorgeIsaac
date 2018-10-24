@@ -11,7 +11,6 @@ import com.google.gson.annotations.SerializedName
 @Entity(tableName = "country", indices = arrayOf(Index(value = ["name"], unique = true)))
 class Country /*implements Parcelable */ {
 
-
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "did")
     var id: Int = 0
@@ -29,7 +28,6 @@ class Country /*implements Parcelable */ {
     @ColumnInfo(name = "flag")
     var flag: String? = null
 
-
     override fun toString(): String {
         return "Country{" +
                 "name='" + name + '\''.toString() +
@@ -39,6 +37,4 @@ class Country /*implements Parcelable */ {
                 ", flag='" + flag + '\''.toString() +
                 '}'.toString()
     }
-
-
 }

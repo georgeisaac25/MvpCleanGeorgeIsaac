@@ -16,9 +16,9 @@ import io.reactivex.observers.DisposableMaybeObserver
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
 
-class CountryPresenter(var view: ViewInterface?,var searchCountry: SearchCountry,var addCountry: AddCountry,var utilities: Utilities)
+class CountryPresenter(var view: ViewInterface?, var searchCountry: SearchCountry, var addCountry: AddCountry, var utilities: Utilities)
     : CommunicateWithPresenterFromInteractor,
-        CommunicateWithPresenterFromView,UseCaseInterface  {
+        CommunicateWithPresenterFromView, UseCaseInterface {
 
     private val disposable = CompositeDisposable()
 
@@ -31,10 +31,9 @@ class CountryPresenter(var view: ViewInterface?,var searchCountry: SearchCountry
     }
 
     fun getData() {
-        if(utilities.isNetAvailable()){
+        if (utilities.isNetAvailable()) {
             view?.callWebService()
-        }
-        else {
+        } else {
             searchInDb("")
         }
     }
@@ -45,12 +44,12 @@ class CountryPresenter(var view: ViewInterface?,var searchCountry: SearchCountry
         view?.callDb(searchText)
     }
 
-    fun getSelectedCountry (pos : Int,list: List<Country>){
+    fun getSelectedCountry(pos: Int, list: List<Country>) {
         val country = list.get(pos)
-        view?.naviagateToShowCountryDetailActivity(country)
+        view?.navigateToShowCountryDetailActivity(country)
     }
 
-    override fun getCountyList(){
+    override fun getCountyList() {
         val getAllCountries = GetCountryInteractor(this)
         getAllCountries.callWebServiceOrDb()
     }
@@ -58,15 +57,17 @@ class CountryPresenter(var view: ViewInterface?,var searchCountry: SearchCountry
     override fun searchCountry(string: String) {
         disposable.add(searchCountry.getCountry(searchString = string).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object : DisposableMaybeObserver<List<Country>>(){
+                .subscribeWith(object : DisposableMaybeObserver<List<Country>>() {
                     override fun onSuccess(list: List<Country>) {
-                        if(list.isNotEmpty()) {
+                        if (list.isNotEmpty()) {
                             view?.showList(list)
                         }
                     }
+
                     override fun onComplete() {
                         view?.showError("no list found")
                     }
+
                     override fun onError(e: Throwable) {
                         view?.showError("some error")
                     }
@@ -74,19 +75,21 @@ class CountryPresenter(var view: ViewInterface?,var searchCountry: SearchCountry
                 }))
     }
 
-    override fun addCountries(list : List<Country>){
+    override fun addCountries(list: List<Country>) {
 
         disposable.add(addCountry.addCountries(list).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableObserver<ResponseOfAddCountry>() {
                     override fun onComplete() {
-                        Log.e("onComplete","onComplete")
+                        Log.e("onComplete", "onComplete")
                     }
+
                     override fun onNext(t: ResponseOfAddCountry) {
-                        Log.e("success in","insertion ${t.getSucessCount()}")
+                        Log.e("success in", "insertion ${t.getSucessCount()}")
                     }
+
                     override fun onError(e: Throwable) {
-                        Log.e("error in","insertion")
+                        Log.e("error in", "insertion")
                     }
                 }))
     }

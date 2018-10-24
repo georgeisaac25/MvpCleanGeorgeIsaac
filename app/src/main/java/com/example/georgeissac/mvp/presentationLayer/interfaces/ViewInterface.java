@@ -10,5 +10,5 @@ public interface ViewInterface {
 	void showError(String error);
 	void callDb (String string);
 	void callWebService();
-	void naviagateToShowCountryDetailActivity (Country country);
+	void navigateToShowCountryDetailActivity (Country country);
 }

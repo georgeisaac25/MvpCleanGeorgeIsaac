@@ -5,19 +5,11 @@ import com.example.georgeissac.mvp.domainLayer.getCountry.repository.Communicate
 import com.example.georgeissac.mvp.domainLayer.getCountry.repository.CommunicateWithPresenterFromInteractor
 import com.example.georgeissac.mvp.domainLayer.getCountry.response.Country
 
-class GetCountryInteractor(communicateWithModelFromInteractors: CommunicateWithPresenterFromInteractor)
-    : CommunicateFromEntityToInteractor{
-
-    private var communicateWithModelFromInteractor: CommunicateWithPresenterFromInteractor
-
-    init {
-        this.communicateWithModelFromInteractor = communicateWithModelFromInteractors
-    }
-
+class GetCountryInteractor(var communicateWithModelFromInteractor: CommunicateWithPresenterFromInteractor)
+    : CommunicateFromEntityToInteractor {
     // Request
-
-    fun callWebServiceOrDb(){
-        var  webserviceGetCountry = WebserviceGetCountry(this)
+    fun callWebServiceOrDb() {
+        var webserviceGetCountry = WebserviceGetCountry(this)
         webserviceGetCountry.getCountries()
     }
 
@@ -29,6 +21,4 @@ class GetCountryInteractor(communicateWithModelFromInteractors: CommunicateWithP
     override fun setResultWhenFailed(resultWhenFailed: String) {
         communicateWithModelFromInteractor.setResultWhenFailed(resultWhenFailed)
     }
-
-
 }

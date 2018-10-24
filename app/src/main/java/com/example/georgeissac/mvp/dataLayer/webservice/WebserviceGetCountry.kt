@@ -11,11 +11,8 @@ import retrofit2.Response
 
 
 class WebserviceGetCountry(var communicateFromEntityToInteractor : CommunicateFromEntityToInteractor){
-                           //,@Inject var apiService: ApiInterface){
 
     fun getCountries() {
-
-
         val apiService = ApiClient.retofitClient!!.create(ApiInterface::class.java)
         val call: Call<List<Country>> = apiService.getCountries()
 
@@ -25,7 +22,6 @@ class WebserviceGetCountry(var communicateFromEntityToInteractor : CommunicateFr
                 communicateFromEntityToInteractor.setResultWhenSucess(response.body())
 
             }
-
             override fun onFailure(call: Call<List<Country>>, t: Throwable) {
                 Log.e("error", t.toString())
                 communicateFromEntityToInteractor.setResultWhenFailed(t.toString())

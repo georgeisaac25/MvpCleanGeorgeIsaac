@@ -15,27 +15,18 @@ import com.example.georgeissac.mvp.util.Utilities
 class CountryAdapter constructor(var listCountry : List<Country>,  clicked: PassPositionOfItemClicked,var utilities: Utilities)
     : RecyclerView.Adapter<CountryAdapter.MyViewHolder>() {
 
-    private var positionClicked: PassPositionOfItemClicked
-    init {
-        this.positionClicked = clicked
-    }
+    private var positionClicked: PassPositionOfItemClicked = clicked
 
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
     {
-        var countryName : TextView
-        var image : ImageView
-        init {
-            countryName = itemView.findViewById (R.id.countryName);
-            image = itemView.findViewById (R.id.imageView);
-        }
-
+        var countryName : TextView = itemView.findViewById (R.id.countryName)
+        var image : ImageView = itemView.findViewById (R.id.imageView)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView = LayoutInflater.from(parent.context)
                 .inflate(R.layout.single_row_country, parent, false)
-
         return MyViewHolder(itemView)
     }
 
