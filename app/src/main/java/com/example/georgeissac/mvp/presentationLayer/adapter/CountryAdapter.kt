@@ -1,6 +1,5 @@
 package com.example.georgeissac.mvp.presentationLayer.adapter
 
-import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -13,13 +12,12 @@ import com.example.georgeissac.mvp.domainLayer.getCountry.response.Country
 import com.example.georgeissac.mvp.util.Utilities
 
 
-class CountryAdapter constructor(context : Context ,var listCountry : List<Country>,  clicked: PassPositionOfItemClicked): RecyclerView.Adapter<CountryAdapter.MyViewHolder>() {
+class CountryAdapter constructor(var listCountry : List<Country>,  clicked: PassPositionOfItemClicked,var utilities: Utilities)
+    : RecyclerView.Adapter<CountryAdapter.MyViewHolder>() {
 
     private var positionClicked: PassPositionOfItemClicked
-    private var c : Context
     init {
         this.positionClicked = clicked
-        this.c = context
     }
 
 
@@ -46,7 +44,7 @@ class CountryAdapter constructor(context : Context ,var listCountry : List<Count
         val country : Country = listCountry.get(position)
         holder.countryName.setText(country.name)
 
-        Utilities().setImage(country.flag,holder.image,context = c)
+        utilities.setImage(country.flag,holder.image)
 
         holder.itemView.setOnClickListener {
             positionClicked.getPositionOfItemForSingleTapUpClick(holder.adapterPosition)

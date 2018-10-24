@@ -9,13 +9,15 @@ import com.example.georgeissac.mvp.domainLayer.getCountry.GetCountryInteractor
 import com.example.georgeissac.mvp.domainLayer.getCountry.repository.CommunicateWithPresenterFromInteractor
 import com.example.georgeissac.mvp.domainLayer.getCountry.response.Country
 import com.example.georgeissac.mvp.domainLayer.getCountryOnSearch.SearchCountry
+import com.example.georgeissac.mvp.util.Utilities
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableMaybeObserver
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
 
-class CountryPresenter(var view: ViewInterface?,var searchCountry: SearchCountry,var addCountry: AddCountry) : CommunicateWithPresenterFromInteractor,
+class CountryPresenter(var view: ViewInterface?,var searchCountry: SearchCountry,var addCountry: AddCountry,var utilities: Utilities)
+    : CommunicateWithPresenterFromInteractor,
         CommunicateWithPresenterFromView,UseCaseInterface  {
 
     private val disposable = CompositeDisposable()
@@ -28,8 +30,8 @@ class CountryPresenter(var view: ViewInterface?,var searchCountry: SearchCountry
         view?.showError(resultWhenFailed)
     }
 
-    fun getData(isNetAvailable: Boolean) {
-        if(isNetAvailable){
+    fun getData() {
+        if(utilities.isNetAvailable()){
             view?.callWebService()
         }
         else {

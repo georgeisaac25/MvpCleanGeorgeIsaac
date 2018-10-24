@@ -24,18 +24,17 @@ import java.io.InputStream
 import java.util.concurrent.Callable
 
 
-class Utilities {
+class Utilities(var context: Context) {
 
-    companion object {
-        fun isNetAvailable(context: Context) : Boolean {
-            val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-            val activeNetworkInfo = connectivityManager.activeNetworkInfo
-            return activeNetworkInfo != null && activeNetworkInfo.isConnected
-        }
+
+    fun isNetAvailable(): Boolean {
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetworkInfo = connectivityManager.activeNetworkInfo
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected
     }
 
-    fun setImage(url : String?,imageView: ImageView,context: Context){
-        val requestBuilder= Glide.with(context)
+    fun setImage(url: String?, imageView: ImageView) {
+        val requestBuilder = Glide.with(context)
                 .using(Glide.buildStreamModelLoader(Uri::class.java, context), InputStream::class.java)
                 .from(Uri::class.java)
                 .`as`(SVG::class.java)

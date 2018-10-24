@@ -34,6 +34,9 @@ class GetCountryActivity : AppCompatActivity(), PassPositionOfItemClicked, ViewI
     @Inject
     lateinit var addCountry: AddCountry
 
+    @Inject
+    lateinit var utilities: Utilities
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -48,8 +51,8 @@ class GetCountryActivity : AppCompatActivity(), PassPositionOfItemClicked, ViewI
         val myToolbar = findViewById<View>(R.id.toolbar) as Toolbar
         setSupportActionBar(myToolbar)
 
-        presenter = CountryPresenter(this,searchCountry,addCountry)
-        presenter?.getData(Utilities.isNetAvailable(this))
+        presenter = CountryPresenter(this,searchCountry,addCountry,utilities)
+        presenter?.getData()
     }
 
     override fun callDb(searchText: String) {
@@ -75,7 +78,7 @@ class GetCountryActivity : AppCompatActivity(), PassPositionOfItemClicked, ViewI
         Log.e("GetCountryActivity", "insert")
         this.list = list
         presenter?.addCountries(list)
-        countryAdapter = CountryAdapter(this, list, this@GetCountryActivity)
+        countryAdapter = CountryAdapter(list, this@GetCountryActivity,utilities)
         recyclerView.adapter = countryAdapter
     }
 
