@@ -40,13 +40,6 @@ public class DatabaseModule {
         return database;
     }
 
-    /*@Provides
-    @Singleton
-    public MyViewModel provideViewModelFactory(MyRepository repository){
-        return new MyViewModel(repository);
-    }*/
-
-
     @Provides
     SearchCountry providesSearchCountry(MyRepository myRepository) {
         return new SearchCountry(myRepository);

@@ -6,13 +6,7 @@ import com.example.georgeissac.mvp.domainLayer.getCountry.response.Country
 import com.example.georgeissac.mvp.domainLayer.getCountryOnSearch.request.Request
 import io.reactivex.Maybe
 
-class SearchCountry(data : MyRepository){
-
-    private var myRepository: MyRepository = data
-    fun getCountryUsingLive(searchString: String) : LiveData<List<Country>> {
-        val request = Request(searchString)
-        return myRepository.searchByText(request.searchString)
-    }
+class SearchCountry(var myRepository : MyRepository){
 
     fun getCountry(searchString: String) : Maybe<List<Country>> {
         val request = Request(searchString)

@@ -13,13 +13,11 @@ import com.example.georgeissac.mvp.domainLayer.getCountry.response.Country
 import com.example.georgeissac.mvp.util.Utilities
 
 
-class CountryAdapter constructor(context : Context ,resultList : List<Country>,  clicked: PassPositionOfItemClicked): RecyclerView.Adapter<CountryAdapter.MyViewHolder>() {
+class CountryAdapter constructor(context : Context ,var listCountry : List<Country>,  clicked: PassPositionOfItemClicked): RecyclerView.Adapter<CountryAdapter.MyViewHolder>() {
 
-    private var listCountry: List<Country>
     private var positionClicked: PassPositionOfItemClicked
     private var c : Context
     init {
-        this.listCountry = resultList
         this.positionClicked = clicked
         this.c = context
     }
@@ -45,8 +43,8 @@ class CountryAdapter constructor(context : Context ,resultList : List<Country>, 
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
-        val country = listCountry?.get(position)
-        holder.countryName.setText(country?.name)
+        val country : Country = listCountry.get(position)
+        holder.countryName.setText(country.name)
 
         Utilities().setImage(country.flag,holder.image,context = c)
 

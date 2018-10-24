@@ -8,5 +8,7 @@ import java.util.List;
 public interface ViewInterface {
 	void showList(List<Country> list);
 	void showError(String error);
-	void showListFromDB(List<Country> list);
+	void callDb (String string);
+	void callWebService();
+	void naviagateToShowCountryDetailActivity (Country country);
 }

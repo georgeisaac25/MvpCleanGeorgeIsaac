@@ -32,12 +32,10 @@ class Utilities {
             val activeNetworkInfo = connectivityManager.activeNetworkInfo
             return activeNetworkInfo != null && activeNetworkInfo.isConnected
         }
-
-
     }
 
-    fun setImage(url : String,imageView: ImageView,context: Context){
-        var requestBuilder= Glide.with(context)
+    fun setImage(url : String?,imageView: ImageView,context: Context){
+        val requestBuilder= Glide.with(context)
                 .using(Glide.buildStreamModelLoader(Uri::class.java, context), InputStream::class.java)
                 .from(Uri::class.java)
                 .`as`(SVG::class.java)
@@ -58,32 +56,5 @@ class Utilities {
                 .override(100, 200)
                 .into(imageView)
     }
-
-    //RxJava try
-
-
-    /*private static <T> Observable<T> makeObservable(final Callable<T> func) {
-        return Observable.create(
-                 Observable.OnSubscribe<T>() {
-                    @Override
-                    public void call(Subscriber <? super T> subscriber) {
-                    try {
-                        subscriber.onNext(func.call());
-                    } catch(Exception ex) {
-                        Log.e("Util", "Error reading from the database", ex);
-                    }
-                }
-                });
-    }*/
-
-    fun <T> makeObservable(func : Callable<T>) : Observable<T>{
-        return Observable.create<T> {
-            it.onNext(func.call())
-        }
-    }
-
-
-
-
 
 }

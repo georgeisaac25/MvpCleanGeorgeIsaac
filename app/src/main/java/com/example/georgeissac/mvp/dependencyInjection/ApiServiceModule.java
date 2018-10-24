@@ -24,10 +24,4 @@ public class ApiServiceModule {
                 .build();
     }
 
-
-    /*@Provides
-    public WebserviceGetCountry provideWebserviceGetCountry(ApiInterface apiInterface){
-        return new WebserviceGetCountry(apiInterface);
-    }*/
-
 }

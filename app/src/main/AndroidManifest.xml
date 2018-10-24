@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".presentationLayer.ShowActivity">
+        <activity android:name=".presentationLayer.ShowCountryDetailActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

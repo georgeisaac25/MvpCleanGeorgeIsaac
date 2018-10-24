@@ -6,8 +6,7 @@ import com.example.georgeissac.mvp.domainLayer.getCountry.response.Country
 import com.example.georgeissac.mvp.domainLayer.getCountryOnSearch.SearchCountry
 
 interface UseCaseInterface {
-    fun searchCountryUsingLiveData(string: String, searchCountry: SearchCountry) : LiveData<List<Country>>
-    fun addCountries(list : List<Country>,addCountry: AddCountry)
+    fun addCountries(list : List<Country>)
     fun getCountyList()
-    fun searchCountry(string: String, searchCountry: SearchCountry)
+    fun searchCountry(string: String)
 }
