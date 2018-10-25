@@ -1,10 +1,10 @@
-package com.example.georgeissac.mvp.domain.countryUseCase.repository;
+package com.example.georgeissac.mvp.domain.countryUseCase.interfaces;
 
 import com.example.georgeissac.mvp.database.CountryPojo;
 
 import java.util.List;
 
-public interface CommunicateFromEntityToInteractor {
+public interface RepositoryInterface {
     void setResultWhenSucess(List<CountryPojo> result);
     void setResultWhenFailed(String resultWhenFailed);
 }

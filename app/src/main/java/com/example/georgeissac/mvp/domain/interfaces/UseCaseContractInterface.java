@@ -4,7 +4,7 @@ import com.example.georgeissac.mvp.database.CountryPojo;
 
 import java.util.List;
 
-public interface UseCaseInterface {
+public interface UseCaseContractInterface {
 
     void addCountries(List<CountryPojo> list);
 

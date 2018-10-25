@@ -16,7 +16,7 @@ import com.example.georgeissac.mvp.domain.addCountryUseCase.AddCountryUseCase
 import com.example.georgeissac.mvp.database.CountryPojo
 import com.example.georgeissac.mvp.domain.countryUseCase.GetCountryUseCase
 import com.example.georgeissac.mvp.domain.searchCountryUseCase.SearchCountryUseCase
-import com.example.georgeissac.mvp.presentation.CountryPresenter
+import com.example.georgeissac.mvp.presentation.presenter.CountryPresenter
 import com.example.georgeissac.mvp.userInterface.adapter.CountryAdapter
 import com.example.georgeissac.mvp.util.Utilities
 import javax.inject.Inject

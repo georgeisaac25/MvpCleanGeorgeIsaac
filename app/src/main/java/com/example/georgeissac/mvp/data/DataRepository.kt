@@ -4,7 +4,7 @@ import com.example.georgeissac.mvp.database.LocalDataSource
 import com.example.georgeissac.mvp.domain.addCountryUseCase.response.ResponseOfAddCountry
 import com.example.georgeissac.mvp.database.CountryPojo
 import com.example.georgeissac.mvp.remote.Mapper
-import com.example.georgeissac.mvp.domain.countryUseCase.repository.CommunicateFromEntityToInteractor
+import com.example.georgeissac.mvp.domain.countryUseCase.interfaces.RepositoryInterface
 import com.example.georgeissac.mvp.domain.countryUseCase.response.Country
 import io.reactivex.Maybe
 import com.example.georgeissac.mvp.domain.searchCountryUseCase.request.Request
@@ -14,9 +14,9 @@ import java.util.concurrent.Callable
 
 
 class DataRepository(val localDataSource: LocalDataSource, val remoteDataSource: RemoteDataSource) :
-    CommunicateFromRemoteToRepository {
+    RemoteDataSourceInterface {
 
-    lateinit var communicateFromEntityToInteractor: CommunicateFromEntityToInteractor
+    lateinit var repositoryInterface: RepositoryInterface
     fun searchCountryInDb(request: Request): Maybe<List<CountryPojo>> {
         return localDataSource.searchByTextUsingRx(request.searchString)
     }
@@ -32,18 +32,18 @@ class DataRepository(val localDataSource: LocalDataSource, val remoteDataSource:
         })
     }
 
-    fun callWebService(communicateFromEntityToInteractor: CommunicateFromEntityToInteractor) {
-        this.communicateFromEntityToInteractor = communicateFromEntityToInteractor
+    fun callWebService(repositoryInterface: RepositoryInterface) {
+        this.repositoryInterface = repositoryInterface
         remoteDataSource.getCountries(this)
     }
 
     override fun setResultWhenSuccess(list: List<Country>) {
-        var list = Mapper().changeToCountryPojo(list)
-        communicateFromEntityToInteractor.setResultWhenSucess(list)
+        val listAfterMapping = Mapper().changeToCountryPojo(list)
+        repositoryInterface.setResultWhenSucess(listAfterMapping)
     }
 
     override fun setResultWhenFailed(error: String) {
-        communicateFromEntityToInteractor.setResultWhenFailed(error)
+        repositoryInterface.setResultWhenFailed(error)
     }
 
 }

@@ -1,4 +1,4 @@
-package com.example.georgeissac.mvp.presentation
+package com.example.georgeissac.mvp.presentation.presenter
 
 import android.util.Log
 import com.example.georgeissac.mvp.presentation.interfaces.CountryContract
@@ -6,9 +6,8 @@ import com.example.georgeissac.mvp.domain.addCountryUseCase.AddCountryUseCase
 import com.example.georgeissac.mvp.domain.addCountryUseCase.response.ResponseOfAddCountry
 import com.example.georgeissac.mvp.database.CountryPojo
 import com.example.georgeissac.mvp.domain.countryUseCase.GetCountryUseCase
-import com.example.georgeissac.mvp.domain.countryUseCase.repository.CommunicateWithPresenterFromInteractor
+import com.example.georgeissac.mvp.domain.interfaces.UseCaseContractInterface
 import com.example.georgeissac.mvp.domain.searchCountryUseCase.SearchCountryUseCase
-import com.example.georgeissac.mvp.domain.interfaces.UseCaseInterface
 import com.example.georgeissac.mvp.util.Utilities
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -19,8 +18,8 @@ import io.reactivex.schedulers.Schedulers
 class CountryPresenter(
     var view: CountryContract.view?, var searchCountryUseCase: SearchCountryUseCase, var addCountryUseCase: AddCountryUseCase
     , var getCountry: GetCountryUseCase, var utilities: Utilities
-) : CommunicateWithPresenterFromInteractor,
-    UseCaseInterface {
+) : com.example.georgeissac.mvp.domain.countryUseCase.interfaces.UseCaseInterface,
+    UseCaseContractInterface {
 
     private val disposable = CompositeDisposable()
 
