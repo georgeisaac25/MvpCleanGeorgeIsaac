@@ -14,6 +14,7 @@ import com.example.georgeissac.mvp.presentationLayer.adapter.CountryAdapter
 import com.example.georgeissac.mvp.presentationLayer.interfaces.PassPositionOfItemClicked
 import com.example.georgeissac.mvp.presentationLayer.interfaces.ViewInterface
 import com.example.georgeissac.mvp.domainLayer.addCountry.AddCountry
+import com.example.georgeissac.mvp.domainLayer.getCountry.CountryPojo
 import com.example.georgeissac.mvp.domainLayer.getCountry.response.Country
 import com.example.georgeissac.mvp.domainLayer.getCountryOnSearch.SearchCountry
 import com.example.georgeissac.mvp.util.Utilities
@@ -23,7 +24,7 @@ import javax.inject.Inject
 class GetCountryActivity : AppCompatActivity(), PassPositionOfItemClicked, ViewInterface/*, LoaderManager.LoaderCallbacks<CountryPresenter>*/ {
 
     private var presenter: CountryPresenter? = null
-    lateinit var list: List<Country>
+    lateinit var list: List<CountryPojo>
     lateinit var recyclerView: RecyclerView
     lateinit var countryAdapter: CountryAdapter
     private var searchView: SearchView? = null
@@ -67,14 +68,14 @@ class GetCountryActivity : AppCompatActivity(), PassPositionOfItemClicked, ViewI
         presenter?.getSelectedCountry(position, list)
     }
 
-    override fun navigateToShowCountryDetailActivity(country: Country?) {
+    override fun navigateToShowCountryDetailActivity(country: CountryPojo?) {
         val intent = Intent(this, ShowCountryDetailActivity::class.java)
         intent.putExtra("countryImg", country?.flag)
         intent.putExtra("countryName", country?.name)
         startActivity(intent)
     }
 
-    override fun showList(list: List<Country>) {
+    override fun showList(list: List<CountryPojo>) {
         Log.e("GetCountryActivity", "insert")
         this.list = list
         presenter?.addCountries(list)

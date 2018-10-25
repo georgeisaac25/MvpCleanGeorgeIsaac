@@ -1,6 +1,7 @@
 package com.example.georgeissac.mvp.dataLayer.webservice
 
 import android.util.Log
+import com.example.georgeissac.mvp.domainLayer.getCountry.Mapper
 import com.example.georgeissac.mvp.retrofit.ApiClient
 import com.example.georgeissac.mvp.retrofit.ApiInterface
 import com.example.georgeissac.mvp.domainLayer.getCountry.repository.CommunicateFromEntityToInteractor
@@ -19,7 +20,8 @@ class WebserviceGetCountry(var communicateFromEntityToInteractor : CommunicateFr
         call.enqueue(object : Callback<List<Country>> {
             override fun onResponse(call: Call<List<Country>>, response: Response<List<Country>>) {
                 Log.e("response", response.toString())
-                communicateFromEntityToInteractor.setResultWhenSucess(response.body())
+                var list = Mapper ().changeToCountryPojo(response.body())
+                communicateFromEntityToInteractor.setResultWhenSucess(list)
 
             }
             override fun onFailure(call: Call<List<Country>>, t: Throwable) {

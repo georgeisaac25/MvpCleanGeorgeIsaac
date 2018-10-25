@@ -7,12 +7,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.example.georgeissac.mvp.R
+import com.example.georgeissac.mvp.domainLayer.getCountry.CountryPojo
 import com.example.georgeissac.mvp.presentationLayer.interfaces.PassPositionOfItemClicked
-import com.example.georgeissac.mvp.domainLayer.getCountry.response.Country
 import com.example.georgeissac.mvp.util.Utilities
 
 
-class CountryAdapter constructor(var listCountry : List<Country>,  clicked: PassPositionOfItemClicked,var utilities: Utilities)
+class CountryAdapter constructor(var listCountry : List<CountryPojo>,  clicked: PassPositionOfItemClicked,var utilities: Utilities)
     : RecyclerView.Adapter<CountryAdapter.MyViewHolder>() {
 
     private var positionClicked: PassPositionOfItemClicked = clicked
@@ -32,7 +32,7 @@ class CountryAdapter constructor(var listCountry : List<Country>,  clicked: Pass
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
-        val country : Country = listCountry.get(position)
+        val country : CountryPojo = listCountry.get(position)
         holder.countryName.setText(country.name)
 
         utilities.setImage(country.flag,holder.image)

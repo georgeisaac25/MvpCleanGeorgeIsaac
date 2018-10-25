@@ -5,6 +5,7 @@ import com.example.georgeissac.mvp.presentationLayer.interfaces.CommunicateWithP
 import com.example.georgeissac.mvp.presentationLayer.interfaces.ViewInterface
 import com.example.georgeissac.mvp.domainLayer.addCountry.AddCountry
 import com.example.georgeissac.mvp.domainLayer.addCountry.ResponseOfAddCountry
+import com.example.georgeissac.mvp.domainLayer.getCountry.CountryPojo
 import com.example.georgeissac.mvp.domainLayer.getCountry.GetCountryInteractor
 import com.example.georgeissac.mvp.domainLayer.getCountry.repository.CommunicateWithPresenterFromInteractor
 import com.example.georgeissac.mvp.domainLayer.getCountry.response.Country
@@ -22,7 +23,7 @@ class CountryPresenter(var view: ViewInterface?, var searchCountry: SearchCountr
 
     private val disposable = CompositeDisposable()
 
-    override fun setResultWhenSucess(result: List<Country>?) {
+    override fun setResultWhenSucess(result: List<CountryPojo>?) {
         view?.showList(result)
     }
 
@@ -44,7 +45,7 @@ class CountryPresenter(var view: ViewInterface?, var searchCountry: SearchCountr
         view?.callDb(searchText)
     }
 
-    fun getSelectedCountry(pos: Int, list: List<Country>) {
+    fun getSelectedCountry(pos: Int, list: List<CountryPojo>) {
         val country = list.get(pos)
         view?.navigateToShowCountryDetailActivity(country)
     }
@@ -57,8 +58,8 @@ class CountryPresenter(var view: ViewInterface?, var searchCountry: SearchCountr
     override fun searchCountry(string: String) {
         disposable.add(searchCountry.getCountry(searchString = string).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object : DisposableMaybeObserver<List<Country>>() {
-                    override fun onSuccess(list: List<Country>) {
+                .subscribeWith(object : DisposableMaybeObserver<List<CountryPojo>>() {
+                    override fun onSuccess(list: List<CountryPojo>) {
                         if (list.isNotEmpty()) {
                             view?.showList(list)
                         }
@@ -75,7 +76,7 @@ class CountryPresenter(var view: ViewInterface?, var searchCountry: SearchCountr
                 }))
     }
 
-    override fun addCountries(list: List<Country>) {
+    override fun addCountries(list: List<CountryPojo>) {
 
         disposable.add(addCountry.addCountries(list).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

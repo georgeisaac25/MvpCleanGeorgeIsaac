@@ -3,7 +3,6 @@ package com.example.georgeissac.mvp.domainLayer.getCountry
 import com.example.georgeissac.mvp.dataLayer.webservice.WebserviceGetCountry
 import com.example.georgeissac.mvp.domainLayer.getCountry.repository.CommunicateFromEntityToInteractor
 import com.example.georgeissac.mvp.domainLayer.getCountry.repository.CommunicateWithPresenterFromInteractor
-import com.example.georgeissac.mvp.domainLayer.getCountry.response.Country
 
 class GetCountryInteractor(var communicateWithModelFromInteractor: CommunicateWithPresenterFromInteractor)
     : CommunicateFromEntityToInteractor {
@@ -14,7 +13,7 @@ class GetCountryInteractor(var communicateWithModelFromInteractor: CommunicateWi
     }
 
     // Response
-    override fun setResultWhenSucess(result: List<Country>) {
+    override fun setResultWhenSucess(result: List<CountryPojo>) {
         communicateWithModelFromInteractor.setResultWhenSucess(result)
     }
 
