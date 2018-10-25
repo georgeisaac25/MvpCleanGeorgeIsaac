@@ -16,7 +16,8 @@ import io.reactivex.observers.DisposableMaybeObserver
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
 
-class CountryPresenter(var view: ViewInterface?, var searchCountry: SearchCountry, var addCountry: AddCountry, var utilities: Utilities)
+class CountryPresenter(var view: ViewInterface?, var searchCountry: SearchCountry, var addCountry: AddCountry
+                       ,var getCountry : GetCountryInteractor, var utilities: Utilities)
     : CommunicateWithPresenterFromInteractor,
         CommunicateWithPresenterFromView, UseCaseInterface {
 
@@ -50,8 +51,7 @@ class CountryPresenter(var view: ViewInterface?, var searchCountry: SearchCountr
     }
 
     override fun getCountyList() {
-        val getAllCountries = GetCountryInteractor(this)
-        getAllCountries.callWebServiceOrDb()
+        getCountry.callWebService(this)
     }
 
     override fun searchCountry(string: String) {

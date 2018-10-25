@@ -8,7 +8,9 @@ import com.example.georgeissac.mvp.dataLayer.database.LocalDataSource;
 import com.example.georgeissac.mvp.dataLayer.database.AppDatabase;
 import com.example.georgeissac.mvp.dataLayer.database.CountryDao;
 import com.example.georgeissac.mvp.domainLayer.addCountry.AddCountry;
+import com.example.georgeissac.mvp.domainLayer.getCountry.GetCountryInteractor;
 import com.example.georgeissac.mvp.domainLayer.getCountryOnSearch.SearchCountry;
+import com.example.georgeissac.mvp.presentationLayer.GetCountryActivity_MembersInjector;
 import com.example.georgeissac.mvp.retrofit.ApiInterface;
 import dagger.Module;
 import dagger.Provides;
@@ -53,6 +55,11 @@ public class DatabaseModule {
     @Provides
     AddCountry providesAddCountry(DataRepository dataRepository) {
         return new AddCountry(dataRepository);
+    }
+
+    @Provides
+    GetCountryInteractor providesGetCountryInteractor(DataRepository dataRepository) {
+        return new GetCountryInteractor(dataRepository);
     }
 
     @Provides

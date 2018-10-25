@@ -15,6 +15,7 @@ import com.example.georgeissac.mvp.presentationLayer.interfaces.PassPositionOfIt
 import com.example.georgeissac.mvp.presentationLayer.interfaces.ViewInterface
 import com.example.georgeissac.mvp.domainLayer.addCountry.AddCountry
 import com.example.georgeissac.mvp.domainLayer.getCountry.CountryPojo
+import com.example.georgeissac.mvp.domainLayer.getCountry.GetCountryInteractor
 import com.example.georgeissac.mvp.domainLayer.getCountry.response.Country
 import com.example.georgeissac.mvp.domainLayer.getCountryOnSearch.SearchCountry
 import com.example.georgeissac.mvp.util.Utilities
@@ -36,6 +37,9 @@ class GetCountryActivity : AppCompatActivity(), PassPositionOfItemClicked, ViewI
     lateinit var addCountry: AddCountry
 
     @Inject
+    lateinit var getCountryInteractor: GetCountryInteractor
+
+    @Inject
     lateinit var utilities: Utilities
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,7 +56,7 @@ class GetCountryActivity : AppCompatActivity(), PassPositionOfItemClicked, ViewI
         val myToolbar = findViewById<View>(R.id.toolbar) as Toolbar
         setSupportActionBar(myToolbar)
 
-        presenter = CountryPresenter(this, searchCountry, addCountry, utilities)
+        presenter = CountryPresenter(this, searchCountry, addCountry, getCountryInteractor ,utilities)
         presenter?.getData()
     }
 
