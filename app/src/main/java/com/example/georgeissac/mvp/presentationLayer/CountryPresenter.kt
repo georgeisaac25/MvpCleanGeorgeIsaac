@@ -8,7 +8,6 @@ import com.example.georgeissac.mvp.domainLayer.addCountry.ResponseOfAddCountry
 import com.example.georgeissac.mvp.domainLayer.getCountry.CountryPojo
 import com.example.georgeissac.mvp.domainLayer.getCountry.GetCountryInteractor
 import com.example.georgeissac.mvp.domainLayer.getCountry.repository.CommunicateWithPresenterFromInteractor
-import com.example.georgeissac.mvp.domainLayer.getCountry.response.Country
 import com.example.georgeissac.mvp.domainLayer.getCountryOnSearch.SearchCountry
 import com.example.georgeissac.mvp.util.Utilities
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -86,7 +85,7 @@ class CountryPresenter(var view: ViewInterface?, var searchCountry: SearchCountr
                     }
 
                     override fun onNext(t: ResponseOfAddCountry) {
-                        Log.e("success in", "insertion ${t.getSucessCount()}")
+                        Log.e("success in", "insertion ${t.getSuccessCount()}")
                     }
 
                     override fun onError(e: Throwable) {

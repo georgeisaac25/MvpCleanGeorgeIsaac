@@ -6,12 +6,12 @@ import java.util.List;
 import javax.inject.Inject;
 import io.reactivex.Maybe;
 
-public class MyRepository {
+public class LocalDataSource {
 
     private CountryDao repoDao;
 
     @Inject
-    public MyRepository(CountryDao repoDao) {
+    public LocalDataSource(CountryDao repoDao) {
         this.repoDao = repoDao;
     }
 

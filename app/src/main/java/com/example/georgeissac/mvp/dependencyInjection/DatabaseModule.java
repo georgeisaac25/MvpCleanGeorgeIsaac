@@ -2,22 +2,23 @@ package com.example.georgeissac.mvp.dependencyInjection;
 
 import android.arch.persistence.room.Room;
 import android.content.Context;
-
-import com.example.georgeissac.mvp.dataLayer.database.MyRepository;
+import com.example.georgeissac.mvp.dataLayer.DataRepository;
+import com.example.georgeissac.mvp.dataLayer.RemoteDataSource;
+import com.example.georgeissac.mvp.dataLayer.database.LocalDataSource;
 import com.example.georgeissac.mvp.dataLayer.database.AppDatabase;
 import com.example.georgeissac.mvp.dataLayer.database.CountryDao;
 import com.example.georgeissac.mvp.domainLayer.addCountry.AddCountry;
 import com.example.georgeissac.mvp.domainLayer.getCountryOnSearch.SearchCountry;
-
+import com.example.georgeissac.mvp.retrofit.ApiInterface;
 import dagger.Module;
 import dagger.Provides;
 
-@Module//(includes = ContextModule.class)
+@Module(includes = ApiServiceModule.class)
 public class DatabaseModule {
     private static final String DB_NAME = "countryDatabase.db";
     private final AppDatabase database;
 
-    public DatabaseModule(Context context){
+    public DatabaseModule(Context context) {
         this.database = Room.databaseBuilder(
                 context,
                 AppDatabase.class,
@@ -25,27 +26,37 @@ public class DatabaseModule {
     }
 
     @Provides
-    public MyRepository provideRepository(CountryDao repoDao){
-        return new MyRepository(repoDao);
+    RemoteDataSource provideRemoteDataSource(ApiInterface apiInterface) {
+        return new RemoteDataSource(apiInterface);
     }
 
     @Provides
-    public CountryDao provideDao(AppDatabase database){
+    LocalDataSource provideRepository(CountryDao repoDao) {
+        return new LocalDataSource(repoDao);
+    }
+
+    @Provides
+    CountryDao provideDao(AppDatabase database) {
         return database.countryDao();
     }
 
     @Provides
-    public AppDatabase provideDb(){
+    AppDatabase provideDb() {
         return database;
     }
 
     @Provides
-    SearchCountry providesSearchCountry(MyRepository myRepository) {
-        return new SearchCountry(myRepository);
+    SearchCountry providesSearchCountry(DataRepository dataRepository) {
+        return new SearchCountry(dataRepository);
     }
 
     @Provides
-    AddCountry providesAddCountry(MyRepository myRepository) {
-        return new AddCountry(myRepository);
+    AddCountry providesAddCountry(DataRepository dataRepository) {
+        return new AddCountry(dataRepository);
+    }
+
+    @Provides
+    DataRepository provideMyRepository(LocalDataSource localDataSource, RemoteDataSource remoteDataSource) {
+        return new DataRepository(localDataSource, remoteDataSource);
     }
 }

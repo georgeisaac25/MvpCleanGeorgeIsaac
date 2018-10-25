@@ -1,8 +1,8 @@
 package com.example.georgeissac.mvp.domainLayer.addCountry
 
-class ResponseOfAddCountry (private val count : Int){
+class ResponseOfAddCountry (val count : Int){
 
-    fun getSucessCount() : Int{
+    fun getSuccessCount() : Int{
         return count
     }
 }
