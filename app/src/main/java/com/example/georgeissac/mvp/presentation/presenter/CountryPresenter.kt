@@ -16,9 +16,12 @@ import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
 
 class CountryPresenter(
-    var view: CountryContract.view?, var searchCountryUseCase: SearchCountryUseCase, var addCountryUseCase: AddCountryUseCase
-    , var getCountry: GetCountryUseCase, var utilities: Utilities
-) : com.example.georgeissac.mvp.domain.countryUseCase.interfaces.UseCaseInterface,
+    var view: CountryContract.view?,
+    var searchCountryUseCase: SearchCountryUseCase,
+    var addCountryUseCase: AddCountryUseCase,
+    var getCountry: GetCountryUseCase,
+    var utilities: Utilities) :
+    com.example.georgeissac.mvp.domain.countryUseCase.interfaces.UseCaseInterface,
     UseCaseContractInterface {
 
     private val disposable = CompositeDisposable()
@@ -55,44 +58,46 @@ class CountryPresenter(
     }
 
     override fun searchCountry(string: String) {
-        disposable.add(searchCountryUseCase.getCountry(searchString = string).subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeWith(object : DisposableMaybeObserver<List<CountryPojo>>() {
-                override fun onSuccess(list: List<CountryPojo>) {
-                    if (list.isNotEmpty()) {
-                        view?.showList(list)
+        disposable.add(
+            searchCountryUseCase.getCountry(searchString = string).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(object : DisposableMaybeObserver<List<CountryPojo>>() {
+                    override fun onSuccess(list: List<CountryPojo>) {
+                        if (list.isNotEmpty()) {
+                            view?.showList(list)
+                        }
                     }
-                }
 
-                override fun onComplete() {
-                    view?.showError("no list found")
-                }
+                    override fun onComplete() {
+                        view?.showError("no list found")
+                    }
 
-                override fun onError(e: Throwable) {
-                    view?.showError("some error")
-                }
+                    override fun onError(e: Throwable) {
+                        view?.showError("some error")
+                    }
 
-            })
+                })
         )
     }
 
     override fun addCountries(list: List<CountryPojo>) {
 
-        disposable.add(addCountryUseCase.addCountries(list).subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeWith(object : DisposableObserver<ResponseOfAddCountry>() {
-                override fun onComplete() {
-                    Log.e("onComplete", "onComplete")
-                }
+        disposable.add(
+            addCountryUseCase.addCountries(list).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(object : DisposableObserver<ResponseOfAddCountry>() {
+                    override fun onComplete() {
+                        Log.e("onComplete", "onComplete")
+                    }
 
-                override fun onNext(t: ResponseOfAddCountry) {
-                    Log.e("success in", "insertion ${t.getSuccessCount()}")
-                }
+                    override fun onNext(t: ResponseOfAddCountry) {
+                        Log.e("success in", "insertion ${t.getSuccessCount()}")
+                    }
 
-                override fun onError(e: Throwable) {
-                    Log.e("error in", "insertion")
-                }
-            })
+                    override fun onError(e: Throwable) {
+                        Log.e("error in", "insertion")
+                    }
+                })
         )
     }
 

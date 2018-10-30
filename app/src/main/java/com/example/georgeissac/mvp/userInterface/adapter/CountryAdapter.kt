@@ -20,7 +20,6 @@ class CountryAdapter constructor(
 
     private var positionClicked: PositionOfItemClicked = clicked
 
-
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var countryName: TextView = itemView.findViewById(R.id.countryName)
         var image: ImageView = itemView.findViewById(R.id.imageView)
