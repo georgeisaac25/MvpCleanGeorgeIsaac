@@ -28,41 +28,49 @@ public class UseCaseModule {
                 DB_NAME).build();
     }
 
+    @ApplicationScope
     @Provides
     RemoteDataSource provideRemoteDataSource(ApiInterface apiInterface) {
         return new RemoteDataSource(apiInterface);
     }
 
+    @ApplicationScope
     @Provides
     LocalDataSource provideRepository(CountryDao repoDao) {
         return new LocalDataSource(repoDao);
     }
 
+    @ApplicationScope
     @Provides
     CountryDao provideDao(AppDatabase database) {
         return database.countryDao();
     }
 
+    @ApplicationScope
     @Provides
     AppDatabase provideDb() {
         return database;
     }
 
+    @ApplicationScope
     @Provides
     SearchCountryUseCase providesSearchCountry(DataRepository dataRepository) {
         return new SearchCountryUseCase(dataRepository);
     }
 
+    @ApplicationScope
     @Provides
     AddCountryUseCase providesAddCountry(DataRepository dataRepository) {
         return new AddCountryUseCase(dataRepository);
     }
 
+    @ApplicationScope
     @Provides
     GetCountryUseCase providesGetCountryInteractor(DataRepository dataRepository) {
         return new GetCountryUseCase(dataRepository);
     }
 
+    @ApplicationScope
     @Provides
     DataRepository provideMyRepository(LocalDataSource localDataSource, RemoteDataSource remoteDataSource) {
         return new DataRepository(localDataSource, remoteDataSource);

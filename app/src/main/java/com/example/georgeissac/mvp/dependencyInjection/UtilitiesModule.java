@@ -9,6 +9,7 @@ import dagger.Provides;
 
 @Module(includes = ContextModule.class)
 public class UtilitiesModule {
+    @ApplicationScope
     @Provides
     public Utilities getUtilities(Context context){
         return new Utilities(context);

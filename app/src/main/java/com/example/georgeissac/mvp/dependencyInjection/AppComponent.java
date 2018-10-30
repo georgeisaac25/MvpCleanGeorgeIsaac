@@ -7,6 +7,7 @@ import com.example.georgeissac.mvp.retrofit.ApiInterface;
 
 import dagger.Component;
 
+@ApplicationScope
 @Component(modules = {UseCaseModule.class, ApiServiceModule.class, ContextModule.class, UtilitiesModule.class})
 public interface AppComponent {
     ApiInterface getApiInterface();
