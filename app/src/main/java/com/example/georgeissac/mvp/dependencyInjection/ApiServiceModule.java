@@ -11,11 +11,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ApiServiceModule {
     public static final String BASE_URL = "https://restcountries.eu/";
 
+    @ApplicationScope
     @Provides
     public ApiInterface getApiServoce(Retrofit retrofit){
         return retrofit.create(ApiInterface.class);
     }
 
+    @ApplicationScope
     @Provides
     public Retrofit getRetrofit(){
         return new Retrofit.Builder()
