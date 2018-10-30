@@ -3,7 +3,7 @@ package com.example.georgeissac.mvp.data
 import com.example.georgeissac.mvp.database.LocalDataSource
 import com.example.georgeissac.mvp.domain.addCountryUseCase.response.ResponseOfAddCountry
 import com.example.georgeissac.mvp.database.CountryPojo
-import com.example.georgeissac.mvp.remote.Mapper
+import com.example.georgeissac.mvp.remote.CountryPojoMapper
 import com.example.georgeissac.mvp.domain.countryUseCase.interfaces.RepositoryInterface
 import com.example.georgeissac.mvp.domain.countryUseCase.response.Country
 import io.reactivex.Maybe
@@ -38,7 +38,7 @@ class DataRepository(val localDataSource: LocalDataSource, val remoteDataSource:
     }
 
     override fun setResultWhenSuccess(list: List<Country>) {
-        val listAfterMapping = Mapper().changeToCountryPojo(list)
+        val listAfterMapping = CountryPojoMapper().changeToCountryPojo(list)
         repositoryInterface.setResultWhenSucess(listAfterMapping)
     }
 
