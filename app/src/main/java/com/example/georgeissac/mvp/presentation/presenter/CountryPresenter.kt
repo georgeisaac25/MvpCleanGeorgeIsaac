@@ -1,24 +1,20 @@
 package com.example.georgeissac.mvp.presentation.presenter
 
-import android.util.Log
 import com.example.georgeissac.mvp.presentation.interfaces.CountryContract
-import com.example.georgeissac.mvp.domain.addCountryUseCase.AddCountryUseCase
-import com.example.georgeissac.mvp.domain.addCountryUseCase.response.ResponseOfAddCountry
-import com.example.georgeissac.mvp.database.CountryPojo
+import com.example.georgeissac.mvp.domain.CountryPojo
 import com.example.georgeissac.mvp.domain.countryUseCase.GetCountryUseCase
 import com.example.georgeissac.mvp.domain.interfaces.UseCaseContractInterface
 import com.example.georgeissac.mvp.domain.searchCountryUseCase.SearchCountryUseCase
+import com.example.georgeissac.mvp.util.Constants
 import com.example.georgeissac.mvp.util.Utilities
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableMaybeObserver
-import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
 
 class CountryPresenter(
     var view: CountryContract.view?,
     var searchCountryUseCase: SearchCountryUseCase,
-    var addCountryUseCase: AddCountryUseCase,
     var getCountry: GetCountryUseCase,
     var utilities: Utilities) :
     com.example.georgeissac.mvp.domain.countryUseCase.interfaces.UseCaseInterface,
@@ -34,18 +30,10 @@ class CountryPresenter(
         view?.showError(resultWhenFailed)
     }
 
-    fun getData() {
-        if (utilities.isNetAvailable()) {
-            view?.callWebService()
-        } else {
-            searchInDb("")
-        }
-    }
-
     fun searchInDb(textToSearch: String) {
         var searchText = textToSearch
         searchText = "%$searchText%"
-        view?.callDb(searchText)
+        searchCountry(searchText)
     }
 
     fun getSelectedCountry(pos: Int, list: List<CountryPojo>) {
@@ -54,7 +42,7 @@ class CountryPresenter(
     }
 
     override fun getCountyList() {
-        getCountry.callWebService(this)
+        getCountry.getCountry(this)
     }
 
     override fun searchCountry(string: String) {
@@ -69,34 +57,13 @@ class CountryPresenter(
                     }
 
                     override fun onComplete() {
-                        view?.showError("no list found")
+                        view?.showError(Constants.noList)
                     }
 
                     override fun onError(e: Throwable) {
-                        view?.showError("some error")
+                        view?.showError(Constants.tryAgain)
                     }
 
-                })
-        )
-    }
-
-    override fun addCountries(list: List<CountryPojo>) {
-
-        disposable.add(
-            addCountryUseCase.addCountries(list).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object : DisposableObserver<ResponseOfAddCountry>() {
-                    override fun onComplete() {
-                        Log.e("onComplete", "onComplete")
-                    }
-
-                    override fun onNext(t: ResponseOfAddCountry) {
-                        Log.e("success in", "insertion ${t.getSuccessCount()}")
-                    }
-
-                    override fun onError(e: Throwable) {
-                        Log.e("error in", "insertion")
-                    }
                 })
         )
     }

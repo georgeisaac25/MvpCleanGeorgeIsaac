@@ -11,18 +11,18 @@ import io.reactivex.Maybe
 interface CountryDao {
 
     @Query("SELECT * FROM countryTable")
-    fun getAll(): List<CountryPojo>
+    fun getAll(): List<CountryEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(list: List<CountryPojo>): List<Long>
+    fun insert(list: List<CountryEntity>): List<Long>
 
     @Query("SELECT * FROM countryTable WHERE name LIKE :name")
-    fun getSearchList(name: String): LiveData<List<CountryPojo>>
+    fun getSearchList(name: String): LiveData<List<CountryEntity>>
 
     @Query("SELECT * FROM countryTable WHERE name = :name")
-    fun getIfExist(name: String): List<CountryPojo>
+    fun getIfExist(name: String): List<CountryEntity>
 
     @Query("SELECT * FROM countryTable WHERE name LIKE :name")
-    fun getSearchListUsingRx(name: String): Maybe<List<CountryPojo>>
+    fun getSearchListUsingRx(name: String): Maybe<List<CountryEntity>>
 
 }

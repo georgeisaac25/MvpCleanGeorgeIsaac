@@ -7,7 +7,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.example.georgeissac.mvp.R
-import com.example.georgeissac.mvp.database.CountryPojo
+import com.example.georgeissac.mvp.database.CountryEntity
+import com.example.georgeissac.mvp.domain.CountryPojo
 import com.example.georgeissac.mvp.userInterface.interfaces.PositionOfItemClicked
 import com.example.georgeissac.mvp.util.Utilities
 

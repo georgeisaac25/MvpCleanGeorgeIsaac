@@ -6,7 +6,7 @@ import android.arch.persistence.room.Index
 import android.arch.persistence.room.PrimaryKey
 
 @Entity(tableName = "countryTable", indices = arrayOf(Index(value = ["name"], unique = true)))
-class CountryPojo(){
+class CountryEntity(){
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "did")

@@ -4,6 +4,7 @@ import android.util.Log
 import com.example.georgeissac.mvp.data.RemoteDataSourceInterface
 import com.example.georgeissac.mvp.domain.countryUseCase.response.Country
 import com.example.georgeissac.mvp.retrofit.ApiInterface
+import io.reactivex.Observable
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -11,8 +12,8 @@ import retrofit2.Response
 class RemoteDataSource(val apiInterface : ApiInterface){
 
     fun getCountries(remoteDataSourceInterface : RemoteDataSourceInterface) {
-        val call: Call<List<Country>> = apiInterface.getCountries()
-        call.enqueue(object : Callback<List<Country>> {
+        val call: Observable<List<Country>> = apiInterface.getCountries()
+        /*call.enqueue(object : Callback<List<Country>> {
             override fun onResponse(call: Call<List<Country>>, response: Response<List<Country>>) {
                 Log.e("response", response.toString())
 
@@ -22,7 +23,7 @@ class RemoteDataSource(val apiInterface : ApiInterface){
                 Log.e("error", t.toString())
                 remoteDataSourceInterface.setResultWhenFailed(t.toString())
             }
-        })
+        })*/
     }
 
 }

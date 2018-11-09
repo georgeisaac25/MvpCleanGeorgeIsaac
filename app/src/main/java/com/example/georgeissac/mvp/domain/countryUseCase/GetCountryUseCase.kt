@@ -1,18 +1,18 @@
 package com.example.georgeissac.mvp.domain.countryUseCase
 
-import com.example.georgeissac.mvp.data.DataRepository
-import com.example.georgeissac.mvp.database.CountryPojo
+import com.example.georgeissac.mvp.domain.CountryPojo
 import com.example.georgeissac.mvp.domain.countryUseCase.interfaces.RepositoryInterface
 import com.example.georgeissac.mvp.domain.countryUseCase.interfaces.UseCaseInterface
+import com.example.georgeissac.mvp.domain.interfaces.RepositoryInterfaceContract
 
-class GetCountryUseCase(var dataRepository: DataRepository)
+class GetCountryUseCase(var repositoryInterfaceContract: RepositoryInterfaceContract)
     : RepositoryInterface {
 
     lateinit var communicateWithModelFromInteractor: UseCaseInterface;
     // Request
-    fun callWebService(communicateWithModelFromInteractor: UseCaseInterface) {
+    fun getCountry(communicateWithModelFromInteractor: UseCaseInterface) {
         this.communicateWithModelFromInteractor = communicateWithModelFromInteractor
-        dataRepository.callWebService(this)
+        repositoryInterfaceContract.getCountries(this)
     }
 
     // Response

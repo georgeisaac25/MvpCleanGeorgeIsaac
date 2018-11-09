@@ -1,7 +1,8 @@
 package com.example.georgeissac.mvp.presentation.interfaces;
 
 
-import com.example.georgeissac.mvp.database.CountryPojo;
+import com.example.georgeissac.mvp.database.CountryEntity;
+import com.example.georgeissac.mvp.domain.CountryPojo;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ public interface CountryContract {
 
         void showError(String error);
 
-        void callDb(String string);
+        //void callDb(String string);
 
         void callWebService();
 

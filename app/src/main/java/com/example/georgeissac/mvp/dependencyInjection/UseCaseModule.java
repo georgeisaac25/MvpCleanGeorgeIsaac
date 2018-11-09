@@ -4,14 +4,15 @@ import android.arch.persistence.room.Room;
 import android.content.Context;
 
 import com.example.georgeissac.mvp.data.DataRepository;
+import com.example.georgeissac.mvp.domain.interfaces.RepositoryInterfaceContract;
 import com.example.georgeissac.mvp.remote.RemoteDataSource;
 import com.example.georgeissac.mvp.database.LocalDataSource;
 import com.example.georgeissac.mvp.database.AppDatabase;
 import com.example.georgeissac.mvp.database.CountryDao;
-import com.example.georgeissac.mvp.domain.addCountryUseCase.AddCountryUseCase;
 import com.example.georgeissac.mvp.domain.countryUseCase.GetCountryUseCase;
 import com.example.georgeissac.mvp.domain.searchCountryUseCase.SearchCountryUseCase;
 import com.example.georgeissac.mvp.retrofit.ApiInterface;
+import com.example.georgeissac.mvp.util.Utilities;
 
 import dagger.Module;
 import dagger.Provides;
@@ -25,7 +26,7 @@ public class UseCaseModule {
         this.database = Room.databaseBuilder(
                 context,
                 AppDatabase.class,
-                DB_NAME).build();
+                DB_NAME).allowMainThreadQueries().build();
     }
 
     @ApplicationScope
@@ -54,25 +55,25 @@ public class UseCaseModule {
 
     @ApplicationScope
     @Provides
-    SearchCountryUseCase providesSearchCountry(DataRepository dataRepository) {
+    SearchCountryUseCase providesSearchCountry(RepositoryInterfaceContract dataRepository) {
         return new SearchCountryUseCase(dataRepository);
     }
 
-    @ApplicationScope
+    /*@ApplicationScope
     @Provides
-    AddCountryUseCase providesAddCountry(DataRepository dataRepository) {
+    AddCountryUseCase providesAddCountry(RepositoryInterfaceContract dataRepository) {
         return new AddCountryUseCase(dataRepository);
-    }
+    }*/
 
     @ApplicationScope
     @Provides
-    GetCountryUseCase providesGetCountryInteractor(DataRepository dataRepository) {
+    GetCountryUseCase providesGetCountryInteractor(RepositoryInterfaceContract dataRepository) {
         return new GetCountryUseCase(dataRepository);
     }
 
     @ApplicationScope
     @Provides
-    DataRepository provideMyRepository(LocalDataSource localDataSource, RemoteDataSource remoteDataSource) {
+    RepositoryInterfaceContract provideMyRepository(LocalDataSource localDataSource, RemoteDataSource remoteDataSource) {
         return new DataRepository(localDataSource, remoteDataSource);
     }
 }

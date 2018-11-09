@@ -1,45 +1,47 @@
 package com.example.georgeissac.mvp.data
 
 import com.example.georgeissac.mvp.database.LocalDataSource
-import com.example.georgeissac.mvp.domain.addCountryUseCase.response.ResponseOfAddCountry
-import com.example.georgeissac.mvp.database.CountryPojo
+import com.example.georgeissac.mvp.database.CountryEntity
+import com.example.georgeissac.mvp.domain.CountryPojo
 import com.example.georgeissac.mvp.remote.CountryPojoMapper
 import com.example.georgeissac.mvp.domain.countryUseCase.interfaces.RepositoryInterface
 import com.example.georgeissac.mvp.domain.countryUseCase.response.Country
+import com.example.georgeissac.mvp.domain.interfaces.RepositoryInterfaceContract
 import io.reactivex.Maybe
 import com.example.georgeissac.mvp.domain.searchCountryUseCase.request.Request
 import com.example.georgeissac.mvp.remote.RemoteDataSource
-import io.reactivex.Observable
-import java.util.concurrent.Callable
-
 
 class DataRepository(val localDataSource: LocalDataSource, val remoteDataSource: RemoteDataSource) :
-    RemoteDataSourceInterface {
+    RemoteDataSourceInterface, RepositoryInterfaceContract {
 
     lateinit var repositoryInterface: RepositoryInterface
-    fun searchCountryInDb(request: Request): Maybe<List<CountryPojo>> {
+
+    override fun searchCountryInDb(request: Request): Maybe<List<CountryPojo>> {
+        val mapper = CountryModelMapperImpl()
         return localDataSource.searchByTextUsingRx(request.searchString)
+            .map { mapper.fromEntity(it) }
     }
 
-    fun putAllCountry(list: List<CountryPojo>): Observable<ResponseOfAddCountry> {
-        return Observable.fromCallable(object : Callable<ResponseOfAddCountry> {
-            override fun call(): ResponseOfAddCountry {
-                val size = localDataSource.insertData(list).size
-                return ResponseOfAddCountry(
-                    size
-                )
-            }
-        })
-    }
-
-    fun callWebService(repositoryInterface: RepositoryInterface) {
+    override fun getCountries(repositoryInterface: RepositoryInterface) {
         this.repositoryInterface = repositoryInterface
-        remoteDataSource.getCountries(this)
+
+        var list = localDataSource.all()
+
+        if (!list.isEmpty()) {
+            val mapper = CountryModelMapperImpl()
+            this.repositoryInterface.setResultWhenSucess(mapper.fromEntity(list))
+        } else {
+            remoteDataSource.getCountries(this)
+        }
     }
 
     override fun setResultWhenSuccess(list: List<Country>) {
-        val listAfterMapping = CountryPojoMapper().changeToCountryPojo(list)
-        repositoryInterface.setResultWhenSucess(listAfterMapping)
+        val listAfterMapping: List<CountryEntity> = CountryPojoMapper().changeToCountryEntity(list)
+        Thread(Runnable {
+            localDataSource.insertData(listAfterMapping)
+        }).start()
+        val mapper = CountryModelMapperImpl()
+        repositoryInterface.setResultWhenSucess(mapper.fromEntity(listAfterMapping))
     }
 
     override fun setResultWhenFailed(error: String) {

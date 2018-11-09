@@ -14,15 +14,15 @@ public class LocalDataSource {
         this.repoDao = repoDao;
     }
 
-    public List<CountryPojo> all() {
+    public List<CountryEntity> all() {
         return repoDao.getAll();
     }
 
-    public Maybe<List<CountryPojo>> searchByTextUsingRx(String searchString) {
+    public Maybe<List<CountryEntity>> searchByTextUsingRx(String searchString) {
         return repoDao.getSearchListUsingRx(searchString);
     }
 
-    public List<Long> insertData(List<CountryPojo> list) {
+    public List<Long> insertData(List<CountryEntity> list) {
         return repoDao.insert(list);
     }
 }

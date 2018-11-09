@@ -1,13 +1,13 @@
 package com.example.georgeissac.mvp.remote
 
-import com.example.georgeissac.mvp.database.CountryPojo
+import com.example.georgeissac.mvp.database.CountryEntity
 import com.example.georgeissac.mvp.domain.countryUseCase.response.Country
 
 class CountryPojoMapper {
-    fun changeToCountryPojo(listOfCountry: List<Country>): List<CountryPojo> {
-        val list: ArrayList<CountryPojo> = ArrayList()
+    fun changeToCountryEntity(listOfCountry: List<Country>): List<CountryEntity> {
+        val list: ArrayList<CountryEntity> = ArrayList()
         for (country in listOfCountry) {
-            val countryPojo = CountryPojo()
+            val countryPojo = CountryEntity()
             countryPojo.name = country.name
             countryPojo.alpha2Code = country.alpha2Code
             countryPojo.alpha3Code = country.alpha3Code

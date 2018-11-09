@@ -12,12 +12,12 @@ import com.example.georgeissac.mvp.MyApp
 import com.example.georgeissac.mvp.R
 import com.example.georgeissac.mvp.userInterface.interfaces.PositionOfItemClicked
 import com.example.georgeissac.mvp.presentation.interfaces.CountryContract
-import com.example.georgeissac.mvp.domain.addCountryUseCase.AddCountryUseCase
-import com.example.georgeissac.mvp.database.CountryPojo
+import com.example.georgeissac.mvp.domain.CountryPojo
 import com.example.georgeissac.mvp.domain.countryUseCase.GetCountryUseCase
 import com.example.georgeissac.mvp.domain.searchCountryUseCase.SearchCountryUseCase
 import com.example.georgeissac.mvp.presentation.presenter.CountryPresenter
 import com.example.georgeissac.mvp.userInterface.adapter.CountryAdapter
+import com.example.georgeissac.mvp.util.Constants
 import com.example.georgeissac.mvp.util.Utilities
 import javax.inject.Inject
 
@@ -33,9 +33,6 @@ class CountryActivity : AppCompatActivity(),
 
     @Inject
     lateinit var searchCountryUseCase: SearchCountryUseCase
-
-    @Inject
-    lateinit var addCountryUseCase: AddCountryUseCase
 
     @Inject
     lateinit var getCountryUseCase: GetCountryUseCase
@@ -60,15 +57,10 @@ class CountryActivity : AppCompatActivity(),
         presenter = CountryPresenter(
             this,
             searchCountryUseCase,
-            addCountryUseCase,
             getCountryUseCase,
             utilities
         )
-        presenter?.getData()
-    }
-
-    override fun callDb(searchText: String) {
-        presenter?.searchCountry(searchText)
+        presenter?.getCountyList()
     }
 
     override fun callWebService() {
@@ -81,22 +73,19 @@ class CountryActivity : AppCompatActivity(),
 
     override fun navigateToShowCountryDetailActivity(country: CountryPojo?) {
         val intent = Intent(this, ShowCountryDetailActivity::class.java)
-        intent.putExtra("countryImg", country?.flag)
-        intent.putExtra("countryName", country?.name)
+        intent.putExtra(Constants.countryImg, country?.flag)
+        intent.putExtra(Constants.countryName, country?.name)
         startActivity(intent)
     }
 
     override fun showList(list: List<CountryPojo>) {
-        Log.e("CountryActivity", "insert")
         this.list = list
-        presenter?.addCountries(list)
         countryAdapter = CountryAdapter(list, this@CountryActivity, utilities)
         recyclerView.adapter = countryAdapter
     }
 
     override fun showError(error: String) {
-        Log.e("error", error)
-        Toast.makeText(this, "Please try again", Toast.LENGTH_LONG).show()
+        Toast.makeText(this, error, Toast.LENGTH_LONG).show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -108,8 +97,7 @@ class CountryActivity : AppCompatActivity(),
     }
 
     private val onQueryTextListener = object : SearchView.OnQueryTextListener {
-        override fun onQueryTextSubmit(searchText: String): Boolean {
-            presenter?.searchInDb(searchText)
+        override fun onQueryTextSubmit(query: String?): Boolean {
             return true
         }
 
