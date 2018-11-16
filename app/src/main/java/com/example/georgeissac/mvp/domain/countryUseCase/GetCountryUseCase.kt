@@ -3,16 +3,16 @@ package com.example.georgeissac.mvp.domain.countryUseCase
 import com.example.georgeissac.mvp.domain.CountryPojo
 import com.example.georgeissac.mvp.domain.countryUseCase.interfaces.RepositoryInterface
 import com.example.georgeissac.mvp.domain.countryUseCase.interfaces.UseCaseInterface
-import com.example.georgeissac.mvp.domain.interfaces.RepositoryInterfaceContract
+import com.example.georgeissac.mvp.domain.interfaces.RepositoryContract
 
-class GetCountryUseCase(var repositoryInterfaceContract: RepositoryInterfaceContract)
+class GetCountryUseCase(var repositoryContract: RepositoryContract)
     : RepositoryInterface {
 
     lateinit var communicateWithModelFromInteractor: UseCaseInterface;
     // Request
     fun getCountry(communicateWithModelFromInteractor: UseCaseInterface) {
         this.communicateWithModelFromInteractor = communicateWithModelFromInteractor
-        repositoryInterfaceContract.getCountries(this)
+        repositoryContract.getCountries(this)
     }
 
     // Response

@@ -15,7 +15,7 @@
         android:name=".MyApp"
         android:theme="@style/AppTheme.NoActionBar">
 
-        <activity android:name=".userInterface.activity.CountryActivity">
+        <activity android:name=".userinterface.activity.CountryActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".userInterface.activity.ShowCountryDetailActivity">
+        <activity android:name=".userinterface.activity.ShowCountryDetailActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

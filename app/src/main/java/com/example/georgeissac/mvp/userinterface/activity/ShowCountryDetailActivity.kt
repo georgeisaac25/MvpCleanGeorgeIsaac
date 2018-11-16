@@ -1,4 +1,4 @@
-package com.example.georgeissac.mvp.userInterface.activity
+package com.example.georgeissac.mvp.userinterface.activity
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -18,8 +18,8 @@ class ShowCountryDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.show_activity)
-
-        (application as MyApp).appComponent.inject(this)
+        if (application is MyApp)
+            (application as MyApp).appComponent.inject(this)
 
         val intent = intent
         val countryName = intent.getStringExtra(Constants.countryName)

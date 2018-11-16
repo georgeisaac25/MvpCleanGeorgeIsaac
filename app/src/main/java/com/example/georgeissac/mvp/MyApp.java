@@ -2,12 +2,12 @@ package com.example.georgeissac.mvp;
 
 import android.app.Application;
 
-import com.example.georgeissac.mvp.dependencyInjection.AppComponent;
-import com.example.georgeissac.mvp.dependencyInjection.ApiServiceModule;
-import com.example.georgeissac.mvp.dependencyInjection.ContextModule;
-import com.example.georgeissac.mvp.dependencyInjection.DaggerAppComponent;
-import com.example.georgeissac.mvp.dependencyInjection.UseCaseModule;
-import com.example.georgeissac.mvp.dependencyInjection.UtilitiesModule;
+import com.example.georgeissac.mvp.dependencyinjection.AppComponent;
+import com.example.georgeissac.mvp.dependencyinjection.ApiServiceModule;
+import com.example.georgeissac.mvp.dependencyinjection.ContextModule;
+import com.example.georgeissac.mvp.dependencyinjection.DaggerAppComponent;
+import com.example.georgeissac.mvp.dependencyinjection.UseCaseModule;
+import com.example.georgeissac.mvp.dependencyinjection.UtilitiesModule;
 
 public class MyApp extends Application {
     AppComponent appComponent;

@@ -1,4 +1,4 @@
-package com.example.georgeissac.mvp.userInterface.svg;
+package com.example.georgeissac.mvp.userinterface.svg;
 
 import android.annotation.TargetApi;
 import android.graphics.drawable.PictureDrawable;

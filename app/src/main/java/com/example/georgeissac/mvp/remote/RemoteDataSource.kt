@@ -12,8 +12,8 @@ import retrofit2.Response
 class RemoteDataSource(val apiInterface : ApiInterface){
 
     fun getCountries(remoteDataSourceInterface : RemoteDataSourceInterface) {
-        val call: Observable<List<Country>> = apiInterface.getCountries()
-        /*call.enqueue(object : Callback<List<Country>> {
+        val call: Call<List<Country>> = apiInterface.getCountries()
+        call.enqueue(object : Callback<List<Country>> {
             override fun onResponse(call: Call<List<Country>>, response: Response<List<Country>>) {
                 Log.e("response", response.toString())
 
@@ -23,7 +23,7 @@ class RemoteDataSource(val apiInterface : ApiInterface){
                 Log.e("error", t.toString())
                 remoteDataSourceInterface.setResultWhenFailed(t.toString())
             }
-        })*/
+        })
     }
 
 }

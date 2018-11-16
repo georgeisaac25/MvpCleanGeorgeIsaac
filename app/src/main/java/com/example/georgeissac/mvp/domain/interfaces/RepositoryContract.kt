@@ -5,7 +5,7 @@ import com.example.georgeissac.mvp.domain.countryUseCase.interfaces.RepositoryIn
 import com.example.georgeissac.mvp.domain.searchCountryUseCase.request.Request
 import io.reactivex.Maybe
 
-interface RepositoryInterfaceContract {
+interface RepositoryContract {
     fun searchCountryInDb(request: Request): Maybe<List<CountryPojo>>
     fun getCountries(repositoryInterface: RepositoryInterface)
 }

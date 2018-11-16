@@ -1,4 +1,4 @@
-package com.example.georgeissac.mvp.userInterface.svg;
+package com.example.georgeissac.mvp.userinterface.svg;
 
 import android.graphics.Picture;
 import android.graphics.drawable.PictureDrawable;

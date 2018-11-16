@@ -1,4 +1,4 @@
-package com.example.georgeissac.mvp.dependencyInjection;
+package com.example.georgeissac.mvp.dependencyinjection;
 
 
 import com.example.georgeissac.mvp.retrofit.ApiInterface;

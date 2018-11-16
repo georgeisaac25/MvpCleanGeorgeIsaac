@@ -1,8 +1,8 @@
-package com.example.georgeissac.mvp.dependencyInjection;
+package com.example.georgeissac.mvp.dependencyinjection;
 
 
-import com.example.georgeissac.mvp.userInterface.activity.CountryActivity;
-import com.example.georgeissac.mvp.userInterface.activity.ShowCountryDetailActivity;
+import com.example.georgeissac.mvp.userinterface.activity.CountryActivity;
+import com.example.georgeissac.mvp.userinterface.activity.ShowCountryDetailActivity;
 import com.example.georgeissac.mvp.retrofit.ApiInterface;
 
 import dagger.Component;

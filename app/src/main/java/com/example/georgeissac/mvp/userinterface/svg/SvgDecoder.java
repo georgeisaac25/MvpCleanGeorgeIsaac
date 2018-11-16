@@ -1,4 +1,4 @@
-package com.example.georgeissac.mvp.userInterface.svg;
+package com.example.georgeissac.mvp.userinterface.svg;
 
 import com.bumptech.glide.load.ResourceDecoder;
 import com.bumptech.glide.load.engine.Resource;

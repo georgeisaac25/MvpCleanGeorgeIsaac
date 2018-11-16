@@ -11,9 +11,9 @@ import com.bumptech.glide.load.model.StreamEncoder
 import com.bumptech.glide.load.resource.file.FileToStreamDecoder
 import com.caverock.androidsvg.SVG
 import com.example.georgeissac.mvp.R
-import com.example.georgeissac.mvp.userInterface.svg.SvgDecoder
-import com.example.georgeissac.mvp.userInterface.svg.SvgDrawableTranscoder
-import com.example.georgeissac.mvp.userInterface.svg.SvgSoftwareLayerSetter
+import com.example.georgeissac.mvp.userinterface.svg.SvgDecoder
+import com.example.georgeissac.mvp.userinterface.svg.SvgDrawableTranscoder
+import com.example.georgeissac.mvp.userinterface.svg.SvgSoftwareLayerSetter
 import java.io.InputStream
 
 class Utilities(var context: Context) {

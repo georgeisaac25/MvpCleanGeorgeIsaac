@@ -1,4 +1,4 @@
-package com.example.georgeissac.mvp.dependencyInjection;
+package com.example.georgeissac.mvp.dependencyinjection;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

@@ -6,7 +6,6 @@ import com.example.georgeissac.mvp.domain.countryUseCase.GetCountryUseCase
 import com.example.georgeissac.mvp.domain.interfaces.UseCaseContractInterface
 import com.example.georgeissac.mvp.domain.searchCountryUseCase.SearchCountryUseCase
 import com.example.georgeissac.mvp.util.Constants
-import com.example.georgeissac.mvp.util.Utilities
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableMaybeObserver
@@ -15,8 +14,8 @@ import io.reactivex.schedulers.Schedulers
 class CountryPresenter(
     var view: CountryContract.view?,
     var searchCountryUseCase: SearchCountryUseCase,
-    var getCountry: GetCountryUseCase,
-    var utilities: Utilities) :
+    var getCountry: GetCountryUseCase
+    ) :
     com.example.georgeissac.mvp.domain.countryUseCase.interfaces.UseCaseInterface,
     UseCaseContractInterface {
 

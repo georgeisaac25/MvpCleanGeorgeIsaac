@@ -1,10 +1,10 @@
-package com.example.georgeissac.mvp.dependencyInjection;
+package com.example.georgeissac.mvp.dependencyinjection;
 
 import android.arch.persistence.room.Room;
 import android.content.Context;
 
 import com.example.georgeissac.mvp.data.DataRepository;
-import com.example.georgeissac.mvp.domain.interfaces.RepositoryInterfaceContract;
+import com.example.georgeissac.mvp.domain.interfaces.RepositoryContract;
 import com.example.georgeissac.mvp.remote.RemoteDataSource;
 import com.example.georgeissac.mvp.database.LocalDataSource;
 import com.example.georgeissac.mvp.database.AppDatabase;
@@ -12,7 +12,6 @@ import com.example.georgeissac.mvp.database.CountryDao;
 import com.example.georgeissac.mvp.domain.countryUseCase.GetCountryUseCase;
 import com.example.georgeissac.mvp.domain.searchCountryUseCase.SearchCountryUseCase;
 import com.example.georgeissac.mvp.retrofit.ApiInterface;
-import com.example.georgeissac.mvp.util.Utilities;
 
 import dagger.Module;
 import dagger.Provides;
@@ -55,25 +54,25 @@ public class UseCaseModule {
 
     @ApplicationScope
     @Provides
-    SearchCountryUseCase providesSearchCountry(RepositoryInterfaceContract dataRepository) {
+    SearchCountryUseCase providesSearchCountry(RepositoryContract dataRepository) {
         return new SearchCountryUseCase(dataRepository);
     }
 
     /*@ApplicationScope
     @Provides
-    AddCountryUseCase providesAddCountry(RepositoryInterfaceContract dataRepository) {
+    AddCountryUseCase providesAddCountry(RepositoryContract dataRepository) {
         return new AddCountryUseCase(dataRepository);
     }*/
 
     @ApplicationScope
     @Provides
-    GetCountryUseCase providesGetCountryInteractor(RepositoryInterfaceContract dataRepository) {
+    GetCountryUseCase providesGetCountryInteractor(RepositoryContract dataRepository) {
         return new GetCountryUseCase(dataRepository);
     }
 
     @ApplicationScope
     @Provides
-    RepositoryInterfaceContract provideMyRepository(LocalDataSource localDataSource, RemoteDataSource remoteDataSource) {
+    RepositoryContract provideMyRepository(LocalDataSource localDataSource, RemoteDataSource remoteDataSource) {
         return new DataRepository(localDataSource, remoteDataSource);
     }
 }

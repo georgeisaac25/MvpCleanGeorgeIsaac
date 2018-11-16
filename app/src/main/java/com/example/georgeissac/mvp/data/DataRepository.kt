@@ -6,13 +6,13 @@ import com.example.georgeissac.mvp.domain.CountryPojo
 import com.example.georgeissac.mvp.remote.CountryPojoMapper
 import com.example.georgeissac.mvp.domain.countryUseCase.interfaces.RepositoryInterface
 import com.example.georgeissac.mvp.domain.countryUseCase.response.Country
-import com.example.georgeissac.mvp.domain.interfaces.RepositoryInterfaceContract
+import com.example.georgeissac.mvp.domain.interfaces.RepositoryContract
 import io.reactivex.Maybe
 import com.example.georgeissac.mvp.domain.searchCountryUseCase.request.Request
 import com.example.georgeissac.mvp.remote.RemoteDataSource
 
 class DataRepository(val localDataSource: LocalDataSource, val remoteDataSource: RemoteDataSource) :
-    RemoteDataSourceInterface, RepositoryInterfaceContract {
+    RemoteDataSourceInterface, RepositoryContract {
 
     lateinit var repositoryInterface: RepositoryInterface
 
@@ -25,7 +25,7 @@ class DataRepository(val localDataSource: LocalDataSource, val remoteDataSource:
     override fun getCountries(repositoryInterface: RepositoryInterface) {
         this.repositoryInterface = repositoryInterface
 
-        var list = localDataSource.all()
+        val list = localDataSource.all()
 
         if (!list.isEmpty()) {
             val mapper = CountryModelMapperImpl()

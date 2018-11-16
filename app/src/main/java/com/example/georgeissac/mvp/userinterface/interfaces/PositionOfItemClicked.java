@@ -1,4 +1,4 @@
-package com.example.georgeissac.mvp.userInterface.interfaces;
+package com.example.georgeissac.mvp.userinterface.interfaces;
 
 
 public interface PositionOfItemClicked {

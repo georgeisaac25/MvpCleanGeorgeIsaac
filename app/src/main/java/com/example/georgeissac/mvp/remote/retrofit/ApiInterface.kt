@@ -7,5 +7,5 @@ import retrofit2.http.GET
 
 interface ApiInterface {
     @GET("rest/v2/all/")
-    fun getCountries() : Observable<List<Country>>
+    fun getCountries() : Call<List<Country>>
 }

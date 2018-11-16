@@ -1,22 +1,21 @@
-package com.example.georgeissac.mvp.userInterface.activity
+package com.example.georgeissac.mvp.userinterface.activity
 
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.support.v7.widget.*
 import android.view.Menu
 import android.widget.Toast
 import com.example.georgeissac.mvp.MyApp
 import com.example.georgeissac.mvp.R
-import com.example.georgeissac.mvp.userInterface.interfaces.PositionOfItemClicked
+import com.example.georgeissac.mvp.userinterface.interfaces.PositionOfItemClicked
 import com.example.georgeissac.mvp.presentation.interfaces.CountryContract
 import com.example.georgeissac.mvp.domain.CountryPojo
 import com.example.georgeissac.mvp.domain.countryUseCase.GetCountryUseCase
 import com.example.georgeissac.mvp.domain.searchCountryUseCase.SearchCountryUseCase
 import com.example.georgeissac.mvp.presentation.presenter.CountryPresenter
-import com.example.georgeissac.mvp.userInterface.adapter.CountryAdapter
+import com.example.georgeissac.mvp.userinterface.adapter.CountryAdapter
 import com.example.georgeissac.mvp.util.Constants
 import com.example.georgeissac.mvp.util.Utilities
 import javax.inject.Inject
@@ -40,11 +39,13 @@ class CountryActivity : AppCompatActivity(),
     @Inject
     lateinit var utilities: Utilities
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        (application as MyApp).appComponent.inject(this)
+        if (application is MyApp)
+            (application as MyApp).appComponent.inject(this)
 
         recyclerView = findViewById(R.id.recyclerView)
         val mLayoutManager = LinearLayoutManager(applicationContext)
@@ -57,8 +58,7 @@ class CountryActivity : AppCompatActivity(),
         presenter = CountryPresenter(
             this,
             searchCountryUseCase,
-            getCountryUseCase,
-            utilities
+            getCountryUseCase
         )
         presenter?.getCountyList()
     }
