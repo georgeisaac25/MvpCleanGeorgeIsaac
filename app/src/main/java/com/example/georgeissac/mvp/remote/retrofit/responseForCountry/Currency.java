@@ -4,15 +4,8 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Currency {
-
-    @SerializedName("code")
-    @Expose
     private String code;
-    @SerializedName("name")
-    @Expose
     private String name;
-    @SerializedName("symbol")
-    @Expose
     private String symbol;
 
     public String getCode() {

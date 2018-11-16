@@ -6,17 +6,13 @@ import com.google.gson.annotations.SerializedName;
 
 public class Language {
 
-    @SerializedName("iso639_1")
-    @Expose
+
     private String iso6391;
-    @SerializedName("iso639_2")
-    @Expose
+
     private String iso6392;
-    @SerializedName("name")
-    @Expose
+
     private String name;
-    @SerializedName("nativeName")
-    @Expose
+
     private String nativeName;
 
     public String getIso6391() {
