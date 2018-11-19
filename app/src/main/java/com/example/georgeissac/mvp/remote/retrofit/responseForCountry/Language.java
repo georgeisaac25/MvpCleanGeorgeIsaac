@@ -6,7 +6,6 @@ import com.google.gson.annotations.SerializedName;
 
 public class Language {
 
-
     private String iso6391;
 
     private String iso6392;

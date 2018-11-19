@@ -26,28 +26,14 @@ class TestCountryPresenter{
 
     private val testScheduler = TestScheduler()
     private val repository: RepositoryContract = mock()
-
-
     private val searchCountryUseCase: SearchCountryUseCase = SearchCountryUseCase(repository)
     private val getCountryUseCase: GetCountryUseCase = GetCountryUseCase(repository)
-
     private val view: CountryContract.view = mock()
-
-
     private lateinit var testSubject: CountryPresenter
-
     var list = ArrayList<CountryPojo>();
-
     var stringSearch = "India"
-
-
     var repositoryContract : RepositoryContract = mock()
     var remoteDataSourceInterface : RemoteDataSourceInterface = mock()
-
-    var useCaseInterface :UseCaseInterface = mock()
-
-    var repositoryInterface : RepositoryInterface = mock()
-
 
     @Before
     fun setUp() {
@@ -58,7 +44,6 @@ class TestCountryPresenter{
         list.add(CountryPojo("india","ind","in","jjdd"))
 
     }
-
 
     @Test
     fun searchCountry_givenSuccess_calls_ShowList() {
@@ -78,10 +63,8 @@ class TestCountryPresenter{
         whenever(repository.searchCountryInDb(any())).thenReturn(Maybe.just(list))
 
         testSubject.onStop()
-
         testSubject.searchCountry(stringSearch)
         testScheduler.triggerActions()
-
         // THEN
         verify(view, never()).showList(list)
     }
@@ -90,15 +73,16 @@ class TestCountryPresenter{
     @Test
     fun searchCountry_givenSuccess_calls_NoList() {
 
-        whenever(repository.searchCountryInDb(any())).thenReturn(Maybe.just(emptyList()))
+
+        val emptySource = Maybe.empty<List<CountryPojo>>()
+
+        whenever(repository.searchCountryInDb(any())).thenReturn(emptySource)
 
         testSubject.searchCountry(stringSearch)
         testScheduler.triggerActions()
 
         // THEN
         verify(view, never()).showList(emptyList())
-
-
     }
 
 
@@ -122,26 +106,6 @@ class TestCountryPresenter{
     @Test
     fun getCountyList_givenSuccess_calls_ShowList() {
 
-        //whenever(getCountryUseCase.setResultWhenSucess(list).the
-
-        doAnswer {i -> (i.arguments[0]  as UseCaseInterface).setResultWhenSucess(listOf())
-        }.whenever(repositoryContract).getCountries(any())
-
-        testSubject.getCountyList()
-
-        // THEN
-        //verify(view).showList(list)
-
-        /*doAnswer(object : Answer {
-            @Throws(Throwable::class)
-            override fun answer(invocation: InvocationOnMock): Any? {
-                (invocation.arguments[0] as UseCaseInterface).setResultWhenSucess(list)
-                return null
-            }
-        }).whenever(remoteDataSourceInterface).setResultWhenSuccess(any())*/
-
-
-        verify(remoteDataSourceInterface).setResultWhenSuccess(listOf())
     }
 
 

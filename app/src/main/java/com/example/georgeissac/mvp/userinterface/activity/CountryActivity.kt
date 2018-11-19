@@ -39,7 +39,6 @@ class CountryActivity : AppCompatActivity(),
     @Inject
     lateinit var utilities: Utilities
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -63,12 +62,8 @@ class CountryActivity : AppCompatActivity(),
         presenter?.getCountyList()
     }
 
-    override fun callWebService() {
-        presenter?.getCountyList()
-    }
-
     override fun getPositionOfItemClicked(position: Int) {
-        presenter?.getSelectedCountry(position, list)
+        presenter?.selectedCountry(position, list)
     }
 
     override fun navigateToShowCountryDetailActivity(country: CountryPojo?) {

@@ -35,7 +35,7 @@ class CountryPresenter(
         searchCountry(searchText)
     }
 
-    fun getSelectedCountry(pos: Int, list: List<CountryPojo>) {
+    fun selectedCountry(pos: Int, list: List<CountryPojo>) {
         val country = list.get(pos)
         view?.navigateToShowCountryDetailActivity(country)
     }
@@ -62,7 +62,6 @@ class CountryPresenter(
                     override fun onError(e: Throwable) {
                         view?.showError(Constants.tryAgain)
                     }
-
                 })
         )
     }
