@@ -4,6 +4,7 @@ import android.util.Log
 import com.example.georgeissac.mvp.data.RemoteDataSourceInterface
 import com.example.georgeissac.mvp.domain.countryUseCase.response.Country
 import com.example.georgeissac.mvp.retrofit.ApiInterface
+import io.reactivex.Maybe
 import io.reactivex.Observable
 import retrofit2.Call
 import retrofit2.Callback
@@ -24,6 +25,10 @@ class RemoteDataSource(val apiInterface : ApiInterface){
                 remoteDataSourceInterface.setResultWhenFailed(t.toString())
             }
         })
+    }
+
+    fun getCountriesUsingMaybe ()  : Maybe<List<Country>> {
+        return apiInterface.getCountriesUsingRx()
     }
 
 }

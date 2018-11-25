@@ -13,6 +13,9 @@ interface CountryDao {
     @Query("SELECT * FROM countryTable")
     fun getAll(): List<CountryEntity>
 
+    @Query("SELECT * FROM countryTable")
+    fun getAllUsingRx(): Maybe<List<CountryEntity>>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(list: List<CountryEntity>): List<Long>
 

@@ -4,6 +4,7 @@ import com.example.georgeissac.mvp.domain.CountryPojo
 import com.example.georgeissac.mvp.domain.countryUseCase.interfaces.RepositoryInterface
 import com.example.georgeissac.mvp.domain.countryUseCase.interfaces.UseCaseInterface
 import com.example.georgeissac.mvp.domain.interfaces.RepositoryContract
+import io.reactivex.Maybe
 
 class GetCountryUseCase(var repositoryContract: RepositoryContract)
     : RepositoryInterface {
@@ -13,6 +14,10 @@ class GetCountryUseCase(var repositoryContract: RepositoryContract)
     fun getCountry(communicateWithModelFromInteractor: UseCaseInterface) {
         this.communicateWithModelFromInteractor = communicateWithModelFromInteractor
         repositoryContract.getCountries(this)
+    }
+
+    fun getCountryUsingRx (): Maybe<List<CountryPojo >> {
+        return repositoryContract.getCountryRx()
     }
 
     // Response

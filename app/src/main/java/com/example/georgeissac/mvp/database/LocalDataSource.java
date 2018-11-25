@@ -18,6 +18,10 @@ public class LocalDataSource {
         return repoDao.getAll();
     }
 
+    public Maybe<List<CountryEntity>> getAllCountryUsingRx() {
+        return repoDao.getAllUsingRx();
+    }
+
     public Maybe<List<CountryEntity>> searchByTextUsingRx(String searchString) {
         return repoDao.getSearchListUsingRx(searchString);
     }

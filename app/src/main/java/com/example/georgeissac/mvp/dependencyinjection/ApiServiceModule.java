@@ -2,6 +2,8 @@ package com.example.georgeissac.mvp.dependencyinjection;
 
 
 import com.example.georgeissac.mvp.retrofit.ApiInterface;
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+
 import dagger.Module;
 import dagger.Provides;
 import retrofit2.Retrofit;
@@ -22,6 +24,7 @@ public class ApiServiceModule {
     public Retrofit getRetrofit(){
         return new Retrofit.Builder()
                 .baseUrl(BASE_URL)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }

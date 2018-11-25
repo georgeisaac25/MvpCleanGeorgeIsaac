@@ -9,4 +9,5 @@ import io.reactivex.Maybe
 interface RepositoryContract {
     fun searchCountryInDb(request: Request): Maybe<List<CountryPojo>>
     fun getCountries(repositoryInterface: RepositoryInterface)
+    fun getCountryRx(): Maybe<List<CountryPojo>>
 }

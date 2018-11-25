@@ -59,7 +59,7 @@ class CountryActivity : AppCompatActivity(),
             searchCountryUseCase,
             getCountryUseCase
         )
-        presenter?.getCountyList()
+        presenter?.getCountyListUsingRx()
     }
 
     override fun getPositionOfItemClicked(position: Int) {

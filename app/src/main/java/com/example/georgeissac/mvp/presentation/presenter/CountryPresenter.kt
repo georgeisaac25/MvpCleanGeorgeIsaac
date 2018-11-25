@@ -44,6 +44,29 @@ class CountryPresenter(
         getCountry.getCountry(this)
     }
 
+    override fun getCountyListUsingRx(){
+
+        disposable.add(
+            getCountry.getCountryUsingRx().subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(object : DisposableMaybeObserver<List<CountryPojo>>() {
+                    override fun onSuccess(list: List<CountryPojo>) {
+                        if (list.isNotEmpty()) {
+                            view?.showList(list)
+                        }
+                    }
+
+                    override fun onComplete() {
+                        view?.showError(Constants.noList)
+                    }
+
+                    override fun onError(e: Throwable) {
+                        view?.showError(Constants.tryAgain)
+                    }
+                })
+        )
+    }
+
     override fun searchCountry(string: String) {
         disposable.add(
             searchCountryUseCase.getCountry(searchString = string).subscribeOn(Schedulers.io())
