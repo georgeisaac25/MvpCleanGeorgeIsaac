@@ -1,7 +1,7 @@
 package com.example.georgeissac.mvp.dependencyinjection;
 
 
-import com.example.georgeissac.mvp.retrofit.ApiInterface;
+import com.example.data.remote.retrofit.ApiInterface;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import dagger.Module;

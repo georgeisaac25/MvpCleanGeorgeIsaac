@@ -1,8 +1,7 @@
 package com.example.georgeissac.mvp.presentation.interfaces;
 
 
-import com.example.georgeissac.mvp.database.CountryEntity;
-import com.example.georgeissac.mvp.domain.CountryPojo;
+import com.example.domain.domain.CountryPojo;
 
 import java.util.List;
 

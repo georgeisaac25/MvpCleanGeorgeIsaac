@@ -3,15 +3,16 @@ package com.example.georgeissac.mvp.dependencyinjection;
 import android.arch.persistence.room.Room;
 import android.content.Context;
 
-import com.example.georgeissac.mvp.data.DataRepository;
-import com.example.georgeissac.mvp.domain.interfaces.RepositoryContract;
-import com.example.georgeissac.mvp.remote.RemoteDataSource;
-import com.example.georgeissac.mvp.database.LocalDataSource;
-import com.example.georgeissac.mvp.database.AppDatabase;
-import com.example.georgeissac.mvp.database.CountryDao;
-import com.example.georgeissac.mvp.domain.countryUseCase.GetCountryUseCase;
+import com.example.data.database.AppDatabase;
+import com.example.data.database.CountryDao;
+import com.example.data.database.LocalDataSource;
+import com.example.data.datasource.DataRepository;
+import com.example.data.remote.RemoteDataSource;
+import com.example.data.remote.retrofit.ApiInterface;
+import com.example.domain.domain.interfaces.RepositoryContract;
+
+import com.example.domain.domain.countryUseCase.GetCountryUseCase;
 import com.example.georgeissac.mvp.domain.searchCountryUseCase.SearchCountryUseCase;
-import com.example.georgeissac.mvp.retrofit.ApiInterface;
 
 import dagger.Module;
 import dagger.Provides;

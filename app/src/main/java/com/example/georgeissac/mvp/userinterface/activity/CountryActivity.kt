@@ -11,8 +11,8 @@ import com.example.georgeissac.mvp.MyApp
 import com.example.georgeissac.mvp.R
 import com.example.georgeissac.mvp.userinterface.interfaces.PositionOfItemClicked
 import com.example.georgeissac.mvp.presentation.interfaces.CountryContract
-import com.example.georgeissac.mvp.domain.CountryPojo
-import com.example.georgeissac.mvp.domain.countryUseCase.GetCountryUseCase
+import com.example.domain.domain.CountryPojo
+import com.example.domain.domain.countryUseCase.GetCountryUseCase
 import com.example.georgeissac.mvp.domain.searchCountryUseCase.SearchCountryUseCase
 import com.example.georgeissac.mvp.presentation.presenter.CountryPresenter
 import com.example.georgeissac.mvp.userinterface.adapter.CountryAdapter

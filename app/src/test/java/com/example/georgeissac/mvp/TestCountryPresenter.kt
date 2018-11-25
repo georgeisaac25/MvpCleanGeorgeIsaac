@@ -1,10 +1,10 @@
 package com.example.georgeissac.mvp
 
-import com.example.georgeissac.mvp.data.RemoteDataSourceInterface
-import com.example.georgeissac.mvp.domain.CountryPojo
-import com.example.georgeissac.mvp.domain.countryUseCase.GetCountryUseCase
+import com.example.georgeissac.mvp.datasource.RemoteDataSourceInterface
+import com.example.domain.domain.CountryPojo
+import com.example.domain.domain.countryUseCase.GetCountryUseCase
 import com.example.georgeissac.mvp.domain.countryUseCase.interfaces.RepositoryInterface
-import com.example.georgeissac.mvp.domain.interfaces.RepositoryContract
+import com.example.domain.domain.interfaces.RepositoryContract
 import com.example.georgeissac.mvp.domain.searchCountryUseCase.SearchCountryUseCase
 import com.example.georgeissac.mvp.presentation.interfaces.CountryContract
 import com.example.georgeissac.mvp.presentation.presenter.CountryPresenter
@@ -18,8 +18,6 @@ import io.reactivex.schedulers.TestScheduler
 import org.junit.Before
 import org.junit.Test
 import com.example.georgeissac.mvp.domain.countryUseCase.interfaces.UseCaseInterface
-import org.mockito.Mockito.doAnswer
-
 
 
 class TestCountryPresenter{

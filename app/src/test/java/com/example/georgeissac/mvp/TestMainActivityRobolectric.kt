@@ -2,29 +2,24 @@ package com.example.georgeissac.mvp
 
 import android.os.Build
 import android.os.Bundle
-import android.provider.SyncStateContract
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
-import com.example.georgeissac.mvp.domain.CountryPojo
+import com.example.domain.domain.CountryPojo
 import com.example.georgeissac.mvp.userinterface.activity.CountryActivity
 import com.example.georgeissac.mvp.userinterface.activity.ShowCountryDetailActivity
 import com.example.georgeissac.mvp.util.Constants
-import com.google.common.base.Predicates.equalTo
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.mock
 import junit.framework.TestCase.assertNotNull
-import org.hamcrest.Matcher
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mockito
 import org.robolectric.Robolectric
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.Shadows
 import org.robolectric.Shadows.shadowOf
 import org.robolectric.annotation.Config
 import org.robolectric.shadows.ShadowActivity
-import org.robolectric.shadows.ShadowIntent
 
 
 import org.hamcrest.MatcherAssert.assertThat
@@ -32,7 +27,6 @@ import org.junit.Assert
 import org.junit.Assert.*
 
 
-import org.hamcrest.CoreMatchers.equalTo
 import org.robolectric.shadows.ShadowToast
 
 
