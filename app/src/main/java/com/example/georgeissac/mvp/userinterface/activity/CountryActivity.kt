@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.support.v7.widget.*
 import android.view.Menu
+import android.view.WindowManager
 import android.widget.Toast
 import com.example.georgeissac.mvp.MyApp
 import com.example.georgeissac.mvp.R
@@ -41,6 +42,7 @@ class CountryActivity : AppCompatActivity(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        window.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
         setContentView(R.layout.activity_main)
 
         if (application is MyApp)
