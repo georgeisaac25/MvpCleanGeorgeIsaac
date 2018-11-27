@@ -59,11 +59,16 @@ class CountryActivity : AppCompatActivity(),
             searchCountryUseCase,
             getCountryUseCase
         )
+
         presenter?.getCountyListUsingRx()
     }
 
     override fun getPositionOfItemClicked(position: Int) {
         presenter?.selectedCountry(position, list)
+    }
+
+    override fun showFreeVersionToast(toastString : String) {
+        toastString.showToast()
     }
 
     override fun navigateToShowCountryDetailActivity(country: CountryPojo?) {
@@ -76,11 +81,12 @@ class CountryActivity : AppCompatActivity(),
     override fun showList(list: List<CountryPojo>) {
         this.list = list
         countryAdapter = CountryAdapter(list, this@CountryActivity, utilities)
+        recyclerView.visibility = View.VISIBLE
         recyclerView.adapter = countryAdapter
     }
 
     override fun showError(error: String) {
-        Toast.makeText(this, error, Toast.LENGTH_LONG).show()
+        error.showToast()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -105,5 +111,15 @@ class CountryActivity : AppCompatActivity(),
     override fun onStop() {
         presenter?.onStop()
         super.onStop()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        presenter?.showHideSearchbox()
+    }
+
+    // just trying extension func
+    fun String.showToast(){
+        Toast.makeText(this@CountryActivity, this, Toast.LENGTH_LONG).show()
     }
 }

@@ -6,5 +6,6 @@ class Constants {
         val countryImg = "countryImg"
         val tryAgain = "Please try again"
         val noList = "no list found"
+        val free = "free"
     }
 }

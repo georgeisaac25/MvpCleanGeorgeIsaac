@@ -11,5 +11,6 @@ public interface CountryContract {
         void showList(List<CountryPojo> list);
         void showError(String error);
         void navigateToShowCountryDetailActivity(CountryPojo country);
+        void showFreeVersionToast(String  string)    ;
     }
 }

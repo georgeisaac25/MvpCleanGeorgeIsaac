@@ -26,8 +26,6 @@ class DataRepository(val localDataSource: LocalDataSource, val remoteDataSource:
     }
 
     override fun getCountryRx(): Maybe<List<CountryPojo>> {
-
-
         val list = localDataSource.all()
         val mapper = CountryModelMapperImpl()
         if (!list.isEmpty()) {

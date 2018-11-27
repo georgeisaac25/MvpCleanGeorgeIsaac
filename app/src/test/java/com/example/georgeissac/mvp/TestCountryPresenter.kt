@@ -1,9 +1,8 @@
 package com.example.georgeissac.mvp
 
-import com.example.georgeissac.mvp.datasource.RemoteDataSourceInterface
+import com.example.data.datasource.RemoteDataSourceInterface
 import com.example.domain.domain.CountryPojo
 import com.example.domain.domain.countryUseCase.GetCountryUseCase
-import com.example.georgeissac.mvp.domain.countryUseCase.interfaces.RepositoryInterface
 import com.example.domain.domain.interfaces.RepositoryContract
 import com.example.georgeissac.mvp.domain.searchCountryUseCase.SearchCountryUseCase
 import com.example.georgeissac.mvp.presentation.interfaces.CountryContract
@@ -17,7 +16,6 @@ import io.reactivex.schedulers.Schedulers
 import io.reactivex.schedulers.TestScheduler
 import org.junit.Before
 import org.junit.Test
-import com.example.georgeissac.mvp.domain.countryUseCase.interfaces.UseCaseInterface
 
 
 class TestCountryPresenter{
@@ -30,8 +28,6 @@ class TestCountryPresenter{
     private lateinit var testSubject: CountryPresenter
     var list = ArrayList<CountryPojo>();
     var stringSearch = "India"
-    var repositoryContract : RepositoryContract = mock()
-    var remoteDataSourceInterface : RemoteDataSourceInterface = mock()
 
     @Before
     fun setUp() {
@@ -102,7 +98,7 @@ class TestCountryPresenter{
     /***********/
 
     @Test
-    fun getCountyList_givenSuccess_calls_ShowList() {
+    fun getCountyListUsingRx_givenSuccess_calls_ShowList() {
 
     }
 

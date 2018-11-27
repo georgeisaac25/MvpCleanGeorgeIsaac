@@ -5,9 +5,9 @@ import com.example.domain.domain.CountryPojo
 import com.example.domain.domain.countryUseCase.GetCountryUseCase
 import com.example.domain.domain.interfaces.UseCaseContractInterface
 import com.example.georgeissac.mvp.domain.searchCountryUseCase.SearchCountryUseCase
+import com.example.georgeissac.mvp.free.ChooseFlavour
 import com.example.georgeissac.mvp.util.Constants
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableMaybeObserver
 import io.reactivex.schedulers.Schedulers
 
@@ -15,18 +15,9 @@ class CountryPresenter(
     var view: CountryContract.view?,
     var searchCountryUseCase: SearchCountryUseCase,
     var getCountry: GetCountryUseCase
-    ) :
+    ) : BasePresenter(),
     UseCaseContractInterface {
 
-    private val disposable = CompositeDisposable()
-
-    /*override fun setResultWhenSucess(result: List<CountryPojo>?) {
-        view?.showList(result)
-    }
-
-    override fun setResultWhenFailed(resultWhenFailed: String) {
-        view?.showError(resultWhenFailed)
-    }*/
 
     fun searchInDb(textToSearch: String) {
         var searchText = textToSearch
@@ -44,7 +35,6 @@ class CountryPresenter(
     }*/
 
     override fun getCountyListUsingRx(){
-
         disposable.add(
             getCountry.getCountryUsingRx().subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -91,6 +81,12 @@ class CountryPresenter(
     fun onStop() {
         disposable.clear()
         view = null
+    }
+
+    fun showHideSearchbox() {
+        if(Constants.free == ChooseFlavour.string){
+            view?.showFreeVersionToast(Constants.free)
+        }
     }
 
 }
