@@ -11,10 +11,10 @@ class GetCountryUseCase(var repositoryContract: RepositoryContract)
 
     lateinit var communicateWithModelFromInteractor: UseCaseInterface;
     // Request
-    fun getCountry(communicateWithModelFromInteractor: UseCaseInterface) {
+    /*fun getCountry(communicateWithModelFromInteractor: UseCaseInterface) {
         this.communicateWithModelFromInteractor = communicateWithModelFromInteractor
         repositoryContract.getCountries(this)
-    }
+    }*/
 
     fun getCountryUsingRx (): Maybe<List<CountryPojo>> {
         return repositoryContract.getCountryRx()

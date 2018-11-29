@@ -30,7 +30,8 @@ class CountryPresenter(
         view?.navigateToShowCountryDetailActivity(country)
     }
 
-    /*override fun getCountyList() {
+    /* TODO
+    override fun getCountyList() {
         getCountry.getCountry(this)
     }*/
 

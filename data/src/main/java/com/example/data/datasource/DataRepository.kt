@@ -15,9 +15,7 @@ import io.reactivex.functions.Function
 import java.util.concurrent.Callable
 
 class DataRepository(val localDataSource: LocalDataSource, val remoteDataSource: RemoteDataSource) :
-    RemoteDataSourceInterface, RepositoryContract {
-
-    lateinit var repositoryInterface: RepositoryInterface
+    RepositoryContract {
 
     override fun searchCountryInDb(request: Request): Maybe<List<CountryPojo>> {
         val mapper = CountryModelMapperImpl()
@@ -43,32 +41,6 @@ class DataRepository(val localDataSource: LocalDataSource, val remoteDataSource:
 
                 })
         }
-    }
-
-    override fun getCountries(repositoryInterface: RepositoryInterface) {
-        this.repositoryInterface = repositoryInterface
-
-        val list = localDataSource.all()
-
-        if (!list.isEmpty()) {
-            val mapper = CountryModelMapperImpl()
-            this.repositoryInterface.setResultWhenSucess(mapper.fromEntity(list))
-        } else {
-            remoteDataSource.getCountries(this)
-        }
-    }
-
-    override fun setResultWhenSuccess(list: List<Country>) {
-        val listAfterMapping: List<CountryEntity> = CountryPojoMapper().changeToCountryEntity(list)
-        Thread(Runnable {
-            localDataSource.insertData(listAfterMapping)
-        }).start()
-        val mapper = CountryModelMapperImpl()
-        repositoryInterface.setResultWhenSucess(mapper.fromEntity(listAfterMapping))
-    }
-
-    override fun setResultWhenFailed(error: String) {
-        repositoryInterface.setResultWhenFailed(error)
     }
 
     fun getCountryAfterInsertion(list: List<CountryEntity>): Maybe<List<CountryPojo>> {

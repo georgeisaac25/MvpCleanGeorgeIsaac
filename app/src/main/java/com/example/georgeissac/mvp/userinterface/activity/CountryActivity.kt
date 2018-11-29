@@ -42,7 +42,7 @@ class CountryActivity : AppCompatActivity(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        window.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
+        //window.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
         setContentView(R.layout.activity_main)
 
         if (application is MyApp)
@@ -93,8 +93,8 @@ class CountryActivity : AppCompatActivity(),
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.my_menu, menu)
-        searchView = menu.findItem(R.id.action_search).getActionView() as SearchView
-        searchView?.isSubmitButtonEnabled = true
+        searchView = menu.findItem(R.id.action_searcher).getActionView() as SearchView
+        //searchView?.isSubmitButtonEnabled = true
         searchView?.setOnQueryTextListener(onQueryTextListener)
         return super.onCreateOptionsMenu(menu)
     }

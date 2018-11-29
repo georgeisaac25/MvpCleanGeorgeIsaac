@@ -2,9 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_search"
+        android:id="@+id/action_searcher"
         android:title="Search"
         android:icon="@drawable/ic_launcher_background"
         app:showAsAction="ifRoom|collapseActionView"
+        android:hint = "hello"
         app:actionViewClass="android.support.v7.widget.SearchView" />
 </menu>

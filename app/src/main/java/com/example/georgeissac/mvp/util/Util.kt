@@ -45,6 +45,36 @@ class Utilities(var context: Context) {
             .load(uri)
             .override(100, 200)
             .into(imageView)
+
+        testSealed(SealedTest.ChildThree(5))
     }
+
+    fun testSealed(sealedTest: SealedTest){
+        val int = when(sealedTest){
+            is SealedTest.ChildOne -> {
+                println("one")
+                1
+            }
+            is SealedTest.ChildTwo -> {
+                println("two")
+                2
+            }
+            is SealedTest.ChildTwo.ChildTwoTwo -> {
+                println("two")
+                22
+            }
+            is SealedTest.ChildThree -> {
+                println("two" + sealedTest.int)
+                3
+            }
+             SealedTest.ObjectFour -> {
+                println("two")
+                4
+            }
+        }
+    }
+
+    //q1) why no is for object
+    //q2) difference between ChildThree(int: Int) and ChildThree(var int: Int)
 
 }

@@ -8,6 +8,6 @@ import io.reactivex.Maybe
 //Using dependency inversion
 interface RepositoryContract {
     fun searchCountryInDb(request: Request): Maybe<List<CountryPojo>>
-    fun getCountries(repositoryInterface: RepositoryInterface)
+    //fun getCountries(repositoryInterface: RepositoryInterface)
     fun getCountryRx(): Maybe<List<CountryPojo>>
 }

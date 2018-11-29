@@ -14,6 +14,7 @@ import com.example.georgeissac.mvp.util.Constants
 import com.example.georgeissac.mvp.util.Utilities
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockito_kotlin.spy
 import com.nhaarman.mockito_kotlin.whenever
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertNotNull
@@ -85,5 +86,13 @@ class TestMainActivityRobolectric {
         countryActivity.showError(Constants.noList)
         assertFalse(recyclerView.isShown)
         Assert.assertEquals(Constants.noList, ShadowToast.getTextOfLatestToast());
+    }
+
+    @Test
+    fun spy_Test() {
+        val list: ArrayList<String> = spy()
+        whenever(list.size).thenReturn(5)
+        list.add("isa")
+        junit.framework.Assert.assertEquals(list.size, 6);
     }
 }
