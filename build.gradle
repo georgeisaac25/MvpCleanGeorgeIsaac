@@ -30,6 +30,7 @@ ext {
     versionCode = 1
     dagger = 2.15
     robolectric = 3.6
+    robolectric_idling = "3.0.1"
     rxJava = "2.1.13"
     rxAndroid = "2.0.2"
     room_version = "1.1.1"

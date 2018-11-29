@@ -18,6 +18,7 @@ import com.example.georgeissac.mvp.domain.searchCountryUseCase.SearchCountryUseC
 import com.example.georgeissac.mvp.presentation.presenter.CountryPresenter
 import com.example.georgeissac.mvp.userinterface.adapter.CountryAdapter
 import com.example.georgeissac.mvp.util.Constants
+import com.example.georgeissac.mvp.util.EspressoIdlingResouce
 import com.example.georgeissac.mvp.util.Utilities
 import javax.inject.Inject
 
@@ -61,7 +62,7 @@ class CountryActivity : AppCompatActivity(),
             searchCountryUseCase,
             getCountryUseCase
         )
-
+        EspressoIdlingResouce.increment();
         presenter?.getCountyListUsingRx()
     }
 
@@ -85,22 +86,25 @@ class CountryActivity : AppCompatActivity(),
         countryAdapter = CountryAdapter(list, this@CountryActivity, utilities)
         recyclerView.visibility = View.VISIBLE
         recyclerView.adapter = countryAdapter
+        EspressoIdlingResouce.decrement();
     }
 
     override fun showError(error: String) {
         error.showToast()
+        EspressoIdlingResouce.decrement();
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.my_menu, menu)
         searchView = menu.findItem(R.id.action_searcher).getActionView() as SearchView
-        //searchView?.isSubmitButtonEnabled = true
+        searchView?.isSubmitButtonEnabled = true
         searchView?.setOnQueryTextListener(onQueryTextListener)
         return super.onCreateOptionsMenu(menu)
     }
 
     private val onQueryTextListener = object : SearchView.OnQueryTextListener {
         override fun onQueryTextSubmit(query: String?): Boolean {
+            EspressoIdlingResouce.decrement();
             return true
         }
 

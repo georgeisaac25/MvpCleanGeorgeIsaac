@@ -29,6 +29,12 @@ import android.widget.EditText
 import android.support.test.espresso.Espresso.onView
 import android.view.KeyEvent
 import junit.framework.Assert.assertSame
+import com.example.georgeissac.mvp.util.EspressoIdlingResouce.getIdlingResource
+import android.support.test.espresso.IdlingRegistry
+import com.example.georgeissac.mvp.util.EspressoIdlingResouce
+import org.junit.Before
+
+
 
 
 @LargeTest
@@ -45,15 +51,24 @@ class CountryActivityTest {
     @JvmField
     var mActivityTestRule = ActivityTestRule(CountryActivity::class.java)
 
+    @Before
+    fun setUp() {
+        IdlingRegistry.getInstance().register(EspressoIdlingResouce.getIdlingResource())
+    }
+
     @Test
     fun showList_Test() {
 
-        Thread.sleep(5000)
+        //Thread.sleep(5000)
 
         onView(withId(R.id.action_searcher)).check(android.support.test.espresso.assertion.ViewAssertions.matches(
             isDisplayed()))
 
+        //EspressoIdlingResouce.increment();
+
+
         onView(withId(R.id.action_searcher)).perform(click());
+
 
         onView(isAssignableFrom(EditText::class.java)).perform(
             typeText(stringTestError),
@@ -75,5 +90,7 @@ class CountryActivityTest {
 
         onView(withId(R.id.recyclerView)).check(android.support.test.espresso.assertion.ViewAssertions.matches(
             isDisplayed()))
+
+        IdlingRegistry.getInstance().unregister(EspressoIdlingResouce.getIdlingResource());
     }
 }
